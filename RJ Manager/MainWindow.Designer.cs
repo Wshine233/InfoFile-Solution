@@ -60,6 +60,8 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button6 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
@@ -74,8 +76,6 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.窗口置顶ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button6 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.Options.SuspendLayout();
@@ -248,7 +248,7 @@
             // button5
             // 
             this.button5.Enabled = false;
-            this.button5.Location = new System.Drawing.Point(447, 6);
+            this.button5.Location = new System.Drawing.Point(447, 18);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(100, 48);
             this.button5.TabIndex = 9;
@@ -258,7 +258,7 @@
             // 
             // Mo
             // 
-            this.Mo.Location = new System.Drawing.Point(404, 57);
+            this.Mo.Location = new System.Drawing.Point(404, 69);
             this.Mo.Name = "Mo";
             this.Mo.Size = new System.Drawing.Size(37, 23);
             this.Mo.TabIndex = 8;
@@ -267,7 +267,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(447, 57);
+            this.button1.Location = new System.Drawing.Point(447, 69);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(100, 23);
             this.button1.TabIndex = 7;
@@ -281,7 +281,7 @@
             this.comboBox1.Items.AddRange(new object[] {
             "RJ45816",
             "RJ23333"});
-            this.comboBox1.Location = new System.Drawing.Point(181, 58);
+            this.comboBox1.Location = new System.Drawing.Point(181, 70);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(77, 20);
             this.comboBox1.TabIndex = 6;
@@ -292,7 +292,7 @@
             // RJInfol
             // 
             this.RJInfol.AutoSize = true;
-            this.RJInfol.Location = new System.Drawing.Point(122, 61);
+            this.RJInfol.Location = new System.Drawing.Point(122, 73);
             this.RJInfol.Name = "RJInfol";
             this.RJInfol.Size = new System.Drawing.Size(53, 12);
             this.RJInfol.TabIndex = 5;
@@ -301,7 +301,7 @@
             // Sizel
             // 
             this.Sizel.AutoSize = true;
-            this.Sizel.Location = new System.Drawing.Point(122, 43);
+            this.Sizel.Location = new System.Drawing.Point(122, 55);
             this.Sizel.Name = "Sizel";
             this.Sizel.Size = new System.Drawing.Size(95, 12);
             this.Sizel.TabIndex = 4;
@@ -310,7 +310,7 @@
             // Typel
             // 
             this.Typel.AutoSize = true;
-            this.Typel.Location = new System.Drawing.Point(122, 25);
+            this.Typel.Location = new System.Drawing.Point(122, 37);
             this.Typel.Name = "Typel";
             this.Typel.Size = new System.Drawing.Size(65, 12);
             this.Typel.TabIndex = 3;
@@ -319,7 +319,7 @@
             // Namel
             // 
             this.Namel.AutoSize = true;
-            this.Namel.Location = new System.Drawing.Point(122, 7);
+            this.Namel.Location = new System.Drawing.Point(122, 19);
             this.Namel.Name = "Namel";
             this.Namel.Size = new System.Drawing.Size(275, 12);
             this.Namel.TabIndex = 2;
@@ -327,7 +327,7 @@
             // 
             // OpenFolder
             // 
-            this.OpenFolder.Location = new System.Drawing.Point(6, 43);
+            this.OpenFolder.Location = new System.Drawing.Point(6, 55);
             this.OpenFolder.Name = "OpenFolder";
             this.OpenFolder.Size = new System.Drawing.Size(90, 34);
             this.OpenFolder.TabIndex = 1;
@@ -337,7 +337,7 @@
             // 
             // Open
             // 
-            this.Open.Location = new System.Drawing.Point(6, 6);
+            this.Open.Location = new System.Drawing.Point(6, 18);
             this.Open.Name = "Open";
             this.Open.Size = new System.Drawing.Size(90, 31);
             this.Open.TabIndex = 0;
@@ -408,6 +408,23 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "过滤器";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(462, 76);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 9;
+            this.button6.Text = "关键字过滤";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(292, 78);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(164, 21);
+            this.textBox1.TabIndex = 8;
             // 
             // label2
             // 
@@ -523,23 +540,6 @@
             this.窗口置顶ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.窗口置顶ToolStripMenuItem.Text = "窗口置顶";
             this.窗口置顶ToolStripMenuItem.Click += new System.EventHandler(this.窗口置顶ToolStripMenuItem_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(292, 78);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(164, 21);
-            this.textBox1.TabIndex = 8;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(462, 76);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 9;
-            this.button6.Text = "关键字过滤";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // MainW
             // 
