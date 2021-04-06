@@ -34,6 +34,18 @@ namespace InfoFileViewer
         public static ObservableCollection<Context> bind = new ObservableCollection<Context>();
 
         Dictionary<string, string> dic = new Dictionary<string, string>();
+        Dictionary<string, string> Dic 
+        {
+            get
+            {
+                return dic;
+            }
+            set
+            {
+                dic = value;
+                SaveDic();
+            }
+        }
 
 
         public MainWindow()
@@ -87,31 +99,41 @@ namespace InfoFileViewer
             {
                 BinaryFormatter formatter = new BinaryFormatter();
                 FileStream stream = info.OpenRead();
-                stream.Close();
 
-                this.dic = formatter.Deserialize(stream) as Dictionary<string, string>;
-                if(dic == null)
+                Dictionary<string, string> cache = formatter.Deserialize(stream) as Dictionary<string, string>;
+                stream.Close();
+                this.Dic = cache;
+                
+                if (Dic == null)
                 {
-                    dic = new Dictionary<string, string>();
+                    Dic = new Dictionary<string, string>();
                 }
             }
+        }
 
-           
+        private void SaveDic()
+        {
+            FileInfo info = new FileInfo("dics.db");
+            FileStream stream = info.Open(FileMode.Create);
 
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(stream,Dic);
+            stream.Close();
         }
 
         private InfoFile GetInfoFile(string pathC)
         {
-            if (!dic.ContainsKey(pathC))
+            if (!Dic.ContainsKey(pathC))
             {
-                dic.Add(pathC, "InfoFolder\\" + DateTime.Now.Ticks.ToString());
+                Dic.Add(pathC, "InfoFolder\\" + DateTime.Now.Ticks.ToString()) ;
+                SaveDic();
                 InfoFile file = new InfoFile(new FileInfo(pathC));
-                file.Serialize(new FileInfo(dic[pathC]));
+                file.Serialize(new FileInfo(Dic[pathC]));
                 return file;
             }
             else
             {
-                return InfoFile.Parse(dic[pathC]);
+                return InfoFile.Parse(Dic[pathC]);
             }
         }
 
@@ -126,11 +148,6 @@ namespace InfoFileViewer
             //dataGrid.ItemsSource = null;
             //dataGrid.ItemsSource = bind;
             //label1.Content = dic[pathC];
-        }
-
-        private void SaveDics()
-        {
-
         }
 
         private void Window_DragEnter(object sender, DragEventArgs e)
@@ -187,25 +204,27 @@ namespace InfoFileViewer
             {
                 if (file.Info.ContainsKey(v.Name))
                 {
-                    MessageBox.Show("检查到重复的键，请自行删除");
+                    MessageBox.Show("检查到重复的键\""+v.Name+"\"，请自行删除");
                 }
                 else
                 {
-                    
                     file.Info.Add(v.Name, v.info);
                 }
             }
 
 
-            if (dic.ContainsKey(pathC))
+            if (Dic.ContainsKey(pathC))
             {
-                FileInfo info = new FileInfo(dic[this.pathC]);
+                FileInfo info = new FileInfo(Dic[this.pathC]);
                 file.Serialize(info);
+                MessageBox.Show("保存完毕");
             }
             else
             {
                 MessageBox.Show("未找到源文件与信息文件的关联");
             }
+
+
  
         }
 
@@ -239,7 +258,7 @@ namespace InfoFileViewer
                         }
                         else
                         {
-                            TextWindow tw = new TextWindow(this ,context);
+                            TextWindow tw = new TextWindow(this , ref context);
                             tw.Show();
                         }
                     }

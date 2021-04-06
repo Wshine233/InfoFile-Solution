@@ -22,20 +22,12 @@ namespace InfoFileViewer
         Context cache;
         MainWindow sender;
 
-        public TextWindow(Window sender, Context content)
+        public TextWindow(Window sender, ref Context content)
         {
             InitializeComponent();
             this.sender = sender as MainWindow; 
             this.cache = content;
-            textBox.IsReadOnly = true;
-            textBox.IsReadOnlyCaretVisible = true;
             textBox.Text = content.Content;
-        }
-
-        private void editButton_Click(object sender, RoutedEventArgs e)
-        {
-            textBox.Background = Brushes.White;
-            textBox.IsReadOnly = false;
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)

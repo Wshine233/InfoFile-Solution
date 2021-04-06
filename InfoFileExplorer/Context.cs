@@ -37,7 +37,7 @@ namespace InfoFileViewer
             set
             {
                 content = value;
-                if (info.GetType().Equals(BaseInfoType.InfoType.LiteralText))
+                if (info.GetInfoType().Equals(BaseInfoType.InfoType.LiteralText))
                 {
                     (this.info as LiteralText).SetData(value);
                 }
