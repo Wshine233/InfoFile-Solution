@@ -19,12 +19,34 @@ namespace InfoFileViewer
     /// </summary>
     public partial class TextWindow : Window
     {
-        public TextWindow(string content)
+        Context cache;
+        MainWindow sender;
+
+        public TextWindow(Window sender, Context content)
         {
             InitializeComponent();
+            this.sender = sender as MainWindow; 
+            this.cache = content;
             textBox.IsReadOnly = true;
             textBox.IsReadOnlyCaretVisible = true;
-            textBox.Text = content;
+            textBox.Text = content.Content;
+        }
+
+        private void editButton_Click(object sender, RoutedEventArgs e)
+        {
+            textBox.Background = Brushes.White;
+            textBox.IsReadOnly = false;
+        }
+
+        private void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            cache.Content = textBox.Text;
+            if(this.sender != null)
+            {
+                this.sender.dataGrid.ItemsSource = null;
+                this.sender.dataGrid.ItemsSource = MainWindow.bind;
+            }
+            this.Close();
         }
     }
 }

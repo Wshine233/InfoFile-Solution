@@ -10,7 +10,7 @@
         <local:ValueSelector x:Key="selector"></local:ValueSelector>
         <local:EditValueSelector x:Key="edit_selector"></local:EditValueSelector>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="83*"/>
@@ -19,7 +19,7 @@
         </Grid.ColumnDefinitions>
         <DataGrid x:Name="dataGrid" HorizontalAlignment="Center" Height="634" VerticalAlignment="Top" Width="435" Grid.ColumnSpan="3" AllowDrop="True" SelectionUnit="Cell" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dataGrid_MouseDoubleClick" CellEditEnding="dataGrid_CellEditEnding" BeginningEdit="dataGrid_BeginningEdit">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="键" Binding="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="3*">
+                <DataGridTextColumn Header="键" Binding="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="3*" CanUserSort="False">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="HorizontalAlignment" Value="Center"></Setter>
@@ -37,7 +37,8 @@
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Name="NewInfo" Click="Add_Click" Header="添加空信息"/>
+                    <MenuItem Name="NewTextInfo" Click="Add_Text_Click" Header="添加文本信息"/>
+                    <MenuItem Name="NewImageInfo" Click="Add_Image_Click" Header="添加图片信息"/>
                 </ContextMenu>
             </DataGrid.ContextMenu>
 

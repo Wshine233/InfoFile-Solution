@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -30,7 +31,7 @@ namespace InfoFileViewer
         InfoFile file;
         string pathC = "";
 
-        ObservableCollection<Context> bind = new ObservableCollection<Context>();
+        public static ObservableCollection<Context> bind = new ObservableCollection<Context>();
 
         Dictionary<string, string> dic = new Dictionary<string, string>();
 
@@ -148,12 +149,35 @@ namespace InfoFileViewer
             }
         }
 
-        public void Add_Click(object sender, RoutedEventArgs e)
+        private void Add_Text_Click(object sender, RoutedEventArgs e)
         {
-            bind.Add(new Context(new LiteralText("233", DateTime.Now.Second.ToString())));
+            bind.Add(new Context(new LiteralText("", "")));
+            DataGridCell cell = dataGrid.GetCell(bind.Count - 1, 0);
+            cell.Focus();
+            cell.IsSelected = true;
+            dataGrid.IsReadOnly = false;
+            dataGrid.BeginEdit();
             //MessageBox.Show("233");
             //dataGrid.ItemsSource = null;
             //dataGrid.ItemsSource = bind;
+        }
+
+        private void Add_Image_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog fileDialog = new System.Windows.Forms.OpenFileDialog();
+            fileDialog.Filter = "picture files (*.jpg;*.jpeg;*.png;*.bmp;*.gif;*.tiff)|*.jpg;*.jpeg;*.png;*.bmp;*.gif;*.tiff";
+            fileDialog.FilterIndex = 0;
+            if (fileDialog.ShowDialog().Equals(System.Windows.Forms.DialogResult.OK))
+            {
+                Context con = new Context(new Picture("", new FileInfo(fileDialog.FileName)));
+                bind.Add(con);
+                DataGridCell cell = dataGrid.GetCell(bind.Count - 1, 0);
+                cell.Focus();
+                cell.IsSelected = true;
+                dataGrid.IsReadOnly = false;
+                dataGrid.BeginEdit();
+            }
+            
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -215,7 +239,7 @@ namespace InfoFileViewer
                         }
                         else
                         {
-                            TextWindow tw = new TextWindow(context.Content);
+                            TextWindow tw = new TextWindow(this ,context);
                             tw.Show();
                         }
                     }
@@ -240,5 +264,6 @@ namespace InfoFileViewer
         {
             
         }
+
     }
 }

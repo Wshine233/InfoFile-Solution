@@ -7,10 +7,10 @@
         mc:Ignorable="d"
         Title="Window1" Height="450" Width="800">
     <Grid>
-        <TextBox x:Name="textBox" Height="286" Margin="20,61,20,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="textBox" Height="286" Margin="20,61,20,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="#F0F0F0"/>
         <Label x:Name="tipLabel" Content="想要把值更改成什么呢？" Margin="20,20,20,0" VerticalAlignment="Top"/>
-        <Button x:Name="editButton" Content="编辑" HorizontalAlignment="Left" Margin="20,0,0,20" Width="75" Height="32" VerticalAlignment="Bottom"/>
-        <Button x:Name="saveButton" Content="确定" Margin="697,0,20,20" Height="32" VerticalAlignment="Bottom"/>
+        <Button x:Name="editButton" Content="编辑" HorizontalAlignment="Left" Margin="20,0,0,20" Width="75" Height="32" VerticalAlignment="Bottom" Click="editButton_Click"/>
+        <Button x:Name="saveButton" Content="确定" Margin="697,0,20,20" Height="32" VerticalAlignment="Bottom" Click="saveButton_Click"/>
 
     </Grid>
 </Window>

@@ -11,7 +11,7 @@ using System.IO;
 
 namespace InfoFileViewer
 {
-    class Context
+    public class Context
     {
         public string name;
         public string Name 
