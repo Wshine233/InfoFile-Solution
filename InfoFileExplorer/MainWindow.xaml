@@ -45,6 +45,7 @@
         </DataGrid>
         <Button Content="Save" Grid.Column="1" HorizontalAlignment="Left" Margin="242,646,0,0" VerticalAlignment="Top" Width="100" Height="25" Click="Button_Click" Grid.ColumnSpan="2"/>
         <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Margin="10,646,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="310"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="26,275,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="103" Width="218"><Run Text="加入查看"/><Run Text="该InfoFile的相关信息功能"/><LineBreak/><Run Text="比如支持查看该InfoFile的占用空间"/><LineBreak/><Run Text="信息条数"/><LineBreak/><Run Text="文本条数、图片条数等等统计信息"/><LineBreak/><Run/><LineBreak/><Run Text="为图像信息实现大图预览的ToolTip"/></TextBlock>
 
     </Grid>
 </Window>

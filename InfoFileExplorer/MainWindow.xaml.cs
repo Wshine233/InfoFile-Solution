@@ -223,8 +223,6 @@ namespace InfoFileViewer
             {
                 MessageBox.Show("未找到源文件与信息文件的关联");
             }
-
-
  
         }
 

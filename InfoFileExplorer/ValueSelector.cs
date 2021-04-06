@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
+using InfoFileViewer.EventHandlers;
 
 namespace InfoFileViewer
 {
@@ -19,7 +21,7 @@ namespace InfoFileViewer
             if (item != null && item is Context)
             {
                 BaseInfoType model = (item as Context).info;
-                Window window = Application.Current.MainWindow;
+                MainWindow window = (MainWindow)Application.Current.MainWindow;
                 if (model.GetInfoType().Equals(BaseInfoType.InfoType.LiteralText))
                 {
                     //实例化标签控件
@@ -32,6 +34,15 @@ namespace InfoFileViewer
                     });
                     label.SetValue(Label.ForegroundProperty, Brushes.Black);
                     label.SetValue(Label.HorizontalAlignmentProperty, HorizontalAlignment.Center);
+                    TextBlock tb = new TextBlock();        
+                    ToolTip tt = new ToolTip();
+                    tb = new TextBlock();
+                    tb.MaxWidth = 700;
+                    tb.TextWrapping = TextWrapping.Wrap;
+                    tt.Content = tb;
+                    label.SetValue(Label.ToolTipProperty, tt);
+                    label.AddHandler(UIElement.MouseMoveEvent, new MouseEventHandler(TemplateLabelEventHandlers.label_MouseMove));
+                    label.AddHandler(UIElement.MouseLeaveEvent, new MouseEventHandler(TemplateLabelEventHandlers.label_MouseLeave));
                     dt.VisualTree = label;
 
                 }
