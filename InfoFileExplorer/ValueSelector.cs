@@ -56,6 +56,20 @@ namespace InfoFileViewer
                         Mode = BindingMode.TwoWay,
                         UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
                     });
+                    Image im = new Image();
+                    im.MaxWidth = 700;
+                    im.MaxHeight = 700;
+                    im.Stretch = Stretch.Uniform;
+                    im.SetBinding(Image.SourceProperty, new Binding()
+                    {
+                        Path = new PropertyPath("Source"),
+                        Mode = BindingMode.TwoWay,
+                        UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                    });
+                    ToolTip tt = new ToolTip();
+                    tt.Content = im;
+                    image.SetValue(Image.ToolTipProperty, tt);
+                    image.AddHandler(Image.ToolTipClosingEvent, new ToolTipEventHandler(TemplateImageEventHandlers.toolTip_Closing));
                     image.SetValue(Image.StretchProperty, Stretch.Uniform);
                     dt.VisualTree = image;
                 }

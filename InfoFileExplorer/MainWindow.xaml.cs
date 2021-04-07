@@ -109,6 +109,8 @@ namespace InfoFileViewer
                     Dic = new Dictionary<string, string>();
                 }
             }
+
+            ToolTipService.ShowDurationProperty.OverrideMetadata(typeof(DependencyObject), new FrameworkPropertyMetadata(Int32.MaxValue));
         }
 
         private void SaveDic()

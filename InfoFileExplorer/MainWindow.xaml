@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:InfoFileViewer"
         mc:Ignorable="d"
-        Title="MainWindow" Height="713.966" Width="443.1" Initialized="Window_Initialized" DragEnter="Window_DragEnter" Drop="Window_Drop">
+        Title="MainWindow" Height="738.966" Width="448.1" Initialized="Window_Initialized" DragEnter="Window_DragEnter" Drop="Window_Drop">
     <Window.Resources>
         <local:ValueSelector x:Key="selector"></local:ValueSelector>
         <local:EditValueSelector x:Key="edit_selector"></local:EditValueSelector>
@@ -13,11 +13,11 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="83*"/>
-            <ColumnDefinition Width="254*"/>
-            <ColumnDefinition Width="98*"/>
+            <ColumnDefinition Width="21*"/>
+            <ColumnDefinition Width="59*"/>
+            <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Center" Height="634" VerticalAlignment="Top" Width="435" Grid.ColumnSpan="3" AllowDrop="True" SelectionUnit="Cell" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dataGrid_MouseDoubleClick" CellEditEnding="dataGrid_CellEditEnding" BeginningEdit="dataGrid_BeginningEdit">
+        <DataGrid x:Name="dataGrid" HorizontalAlignment="Center" Height="634" VerticalAlignment="Top" Width="440" Grid.ColumnSpan="3" AllowDrop="True" SelectionUnit="Cell" SelectionMode="Single" AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="dataGrid_MouseDoubleClick" CellEditEnding="dataGrid_CellEditEnding" BeginningEdit="dataGrid_BeginningEdit">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="键" Binding="{Binding Path=Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="3*" CanUserSort="False">
                     <DataGridTextColumn.ElementStyle>
@@ -43,9 +43,10 @@
             </DataGrid.ContextMenu>
 
         </DataGrid>
-        <Button Content="Save" Grid.Column="1" HorizontalAlignment="Left" Margin="242,646,0,0" VerticalAlignment="Top" Width="100" Height="25" Click="Button_Click" Grid.ColumnSpan="2"/>
-        <Label x:Name="label1" Content="Label" HorizontalAlignment="Left" Margin="10,646,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="310"/>
-        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="26,275,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="103" Width="218"><Run Text="加入查看"/><Run Text="该InfoFile的相关信息功能"/><LineBreak/><Run Text="比如支持查看该InfoFile的占用空间"/><LineBreak/><Run Text="信息条数"/><LineBreak/><Run Text="文本条数、图片条数等等统计信息"/><LineBreak/><Run/><LineBreak/><Run Text="为图像信息实现大图预览的ToolTip"/></TextBlock>
+        <Button Content="Save" Grid.Column="2" HorizontalAlignment="Left" Margin="10,646,0,0" VerticalAlignment="Top" Width="100" Height="25" Click="Button_Click"/>
+        <TextBlock Grid.Column="1" HorizontalAlignment="Left" Margin="26,275,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="103" Width="218" Grid.ColumnSpan="2"><Run Text="加入查看"/><Run Text="该InfoFile的相关信息功能"/><LineBreak/><Run Text="比如支持查看该InfoFile的占用空间"/><LineBreak/><Run Text="信息条数"/><LineBreak/><Run Text="文本条数、图片条数等等统计信息"/><LineBreak/><Run/><LineBreak/><Run Text="为图像信息实现大图预览的ToolTip"/></TextBlock>
+        <Button Content="" HorizontalAlignment="Left" Margin="13,646,0,0" Width="28" IsDefault="True" Height="27" VerticalAlignment="Top" Background="#00000000" BorderBrush="Transparent"/>
+        <StatusBar HorizontalAlignment="Left" Margin="0,687,0,0" Width="440" Grid.ColumnSpan="3"/>
 
     </Grid>
 </Window>

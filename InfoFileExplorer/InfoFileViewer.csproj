@@ -74,6 +74,7 @@
     </ApplicationDefinition>
     <Compile Include="EditValueSelector.cs" />
     <Compile Include="DataGridUtils.cs" />
+    <Compile Include="EventHandlers\TemplateImageEventHandlers.cs" />
     <Compile Include="EventHandlers\TemplateLabelEventHandlers.cs" />
     <Compile Include="ValueSelector.cs" />
     <Compile Include="TextWindow.xaml.cs">
