@@ -4,6 +4,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Drawing;
+using System.Collections.ObjectModel;
 
 namespace InfoFileFormat
 {
@@ -118,6 +119,19 @@ namespace InfoFileFormat
         {
             BaseInfoType[] a = new BaseInfoType[info.Count];
             info.Values.CopyTo(a, 0);
+            return a;
+        }
+
+        public Collection<TagCollection> GetTagCollections()
+        {
+            Collection<TagCollection> a = new Collection<TagCollection>();
+            foreach (BaseInfoType i in this.info.Values)
+            {
+                if(i.GetInfoType() == BaseInfoType.InfoType.Tag)
+                {
+                    a.Add(i as TagCollection);
+                }
+            }
             return a;
         }
 
