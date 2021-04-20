@@ -45,6 +45,7 @@ namespace RJ_Manager
             dynamic pic = infoFile2.GetInfo("FirstPic");
             pictureBox1.Image = pic.ToImage();
             MessageBox.Show(infoFile2.GetInfo("My First Test Text").Metadata[BaseInfoType.UPDATE_TIME].ToString());
+            MessageBox.Show(infoFile2.GetInfo("Test Collection").ToString());
 
 
 

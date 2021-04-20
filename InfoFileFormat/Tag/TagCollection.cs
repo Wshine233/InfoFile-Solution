@@ -8,7 +8,17 @@ namespace InfoFileFormat
     [Serializable]
     public class TagCollection : BaseInfoType
     {
-        SortedSet<Tag> tags = new SortedSet<Tag>();
+        SortedSet<Tag> tags = new SortedSet<Tag>(new TagComparer());
+
+        public TagCollection(String name)
+        {
+            this.name = name;
+        }
+
+        public void AddTag(Tag tag)
+        {
+            tags.Add(tag);
+        }
 
         public bool HasTag(Tag tag)
         {
@@ -63,6 +73,32 @@ namespace InfoFileFormat
         public override InfoType GetInfoType()
         {
             return InfoType.Tag;
+        }
+
+        public override string ToString()
+        {
+            string a = "";
+            Tag[] tagArray = new Tag[tags.Count];
+            tags.CopyTo(tagArray);
+            for (int i = 0; i < tagArray.Length; i++)
+            {
+                if (i > 0)
+                {
+                    a += " ";
+                }
+                a += tagArray[i];
+                
+            }
+            return a;
+        }
+    }
+
+    [Serializable]
+    class TagComparer : Comparer<Tag>
+    {
+        public override int Compare(Tag x, Tag y)
+        {
+            return x.Content.CompareTo(y.Content);
         }
     }
 }

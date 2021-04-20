@@ -5,9 +5,10 @@ using System.Text;
 
 namespace InfoFileFormat
 {
+    [Serializable]
     public class Tag
     {
-        String Content
+        public String Content
         {
             get;
             set;
@@ -18,7 +19,12 @@ namespace InfoFileFormat
             this.Content = content;
         }
 
-        public static Collection<InfoFile> Filter(Collection<Tag> tags, Collection<InfoFile> infos, String collectionName)
+        public override string ToString()
+        {
+            return "<Tag>"+Content;
+        }
+
+        public static Collection<InfoFile> Filter(SortedSet<Tag> tags, Collection<InfoFile> infos, String collectionName)
         {
             Collection<InfoFile> a = new Collection<InfoFile>();
             foreach(InfoFile f in infos)

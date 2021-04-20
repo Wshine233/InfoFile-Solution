@@ -57,8 +57,14 @@ namespace InfoFileFormat
             LiteralText text = new LiteralText("My First Test Text", "Hello!");
             infoFile.AddMetaData(text);
 
-            Picture picture = new Picture("FirstPic", Image.FromFile("C:\\Users\\atbwc\\Desktop\\wallhaven-ymz61d.jpg"));
+            Picture picture = new Picture("FirstPic", Image.FromFile("C:\\Users\\atbwc\\Pictures\\Camera Roll\\wallhaven-ymz61d.jpg"));
             infoFile.AddMetaData(picture);
+
+            TagCollection collection = new TagCollection("Test Collection");
+            collection.AddTag(new Tag("123"));
+            collection.AddTag(new Tag("Test Tag"));
+            infoFile.AddMetaData(collection);
+
             TEST_VALUE = infoFile;
         }
 
