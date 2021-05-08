@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="BaseInfoType.cs" />
     <Compile Include="InfoFile.cs" />
+    <Compile Include="InfoGroup.cs" />
+    <Compile Include="InfoTemplate.cs" />
     <Compile Include="LiteralText.cs" />
     <Compile Include="NecessaryInfo.cs" />
     <Compile Include="Picture.cs" />

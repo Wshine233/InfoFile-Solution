@@ -13,7 +13,8 @@ namespace InfoFileFormat
             Picture = 1,
             RichText = 2,
             Tag = 3,
-            NecessaryInfo = 4
+            NecessaryInfo = 4,
+            InfoGroup = 5
         }
 
         public const String UPDATE_TIME = "latest_update_time";
