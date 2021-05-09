@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Logging = new System.Windows.Forms.Label();
             this.listBox1 = new System.Windows.Forms.ListBox();
@@ -59,6 +60,7 @@
             this.fb2 = new System.Windows.Forms.Button();
             this.fb1 = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.Options.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -95,6 +97,7 @@
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(208, 496);
             this.listBox1.TabIndex = 7;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // Options
             // 
@@ -137,6 +140,7 @@
             this.button5.TabIndex = 9;
             this.button5.Text = "移动到工作目录";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // Mo
             // 
@@ -155,6 +159,7 @@
             this.button1.TabIndex = 7;
             this.button1.Text = "更改/编辑RJ号";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // comboBox1
             // 
@@ -166,6 +171,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(77, 20);
             this.comboBox1.TabIndex = 6;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // RJInfol
             // 
@@ -211,6 +217,7 @@
             this.OpenFolder.TabIndex = 1;
             this.OpenFolder.Text = "打开文件位置";
             this.OpenFolder.UseVisualStyleBackColor = true;
+            this.OpenFolder.Click += new System.EventHandler(this.OpenFolder_Click);
             // 
             // Open
             // 
@@ -220,6 +227,7 @@
             this.Open.TabIndex = 0;
             this.Open.Text = "打开文件";
             this.Open.UseVisualStyleBackColor = true;
+            this.Open.Click += new System.EventHandler(this.Open_Click);
             // 
             // tabPage2
             // 
@@ -264,6 +272,7 @@
             this.button2.TabIndex = 0;
             this.button2.Text = "查找重复RJ";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // tabPage3
             // 
@@ -292,6 +301,7 @@
             this.button6.TabIndex = 9;
             this.button6.Text = "关键字过滤";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // textBox1
             // 
@@ -327,6 +337,7 @@
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(123, 21);
             this.dateTimePicker2.TabIndex = 5;
+            this.dateTimePicker2.ValueChanged += new System.EventHandler(this.dateTimePicker2_ValueChanged);
             // 
             // checkBox1
             // 
@@ -337,6 +348,7 @@
             this.checkBox1.TabIndex = 4;
             this.checkBox1.Text = "时间过滤";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // dateTimePicker1
             // 
@@ -345,6 +357,7 @@
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(123, 21);
             this.dateTimePicker1.TabIndex = 3;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // fc1
             // 
@@ -358,6 +371,7 @@
             this.fc1.TabIndex = 2;
             this.fc1.Text = "保留模糊RJ";
             this.fc1.UseVisualStyleBackColor = true;
+            this.fc1.CheckedChanged += new System.EventHandler(this.fc1_CheckedChanged);
             // 
             // fb2
             // 
@@ -369,6 +383,7 @@
             this.fb2.TabIndex = 1;
             this.fb2.Text = "无RJ";
             this.fb2.UseVisualStyleBackColor = false;
+            this.fb2.Click += new System.EventHandler(this.fb2_Click);
             // 
             // fb1
             // 
@@ -379,6 +394,7 @@
             this.fb1.TabIndex = 0;
             this.fb1.Text = "有RJ";
             this.fb1.UseVisualStyleBackColor = true;
+            this.fb1.Click += new System.EventHandler(this.fb1_Click);
             // 
             // linkLabel1
             // 
@@ -448,5 +464,6 @@
         private System.Windows.Forms.Button fb2;
         private System.Windows.Forms.Button fb1;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
