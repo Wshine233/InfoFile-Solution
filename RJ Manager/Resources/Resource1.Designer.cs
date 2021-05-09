@@ -69,5 +69,43 @@ namespace RJ_Manager.Resources {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   查找类似 @charset &quot;UTF-8&quot;;
+        ///	div#work_header {
+        ///	width:100%;
+        ///	margin-bottom:20px
+        ///}
+        ///div#work_header::after {
+        ///	display:block;
+        ///	clear:both;
+        ///	content:&quot;&quot;
+        ///}
+        ///div#work_left {
+        ///	float:left;
+        ///	width:50%;
+        ///	min-width:600px
+        ///}
+        ///@media screen and (max-width:1366px) {
+        ///	div#work_left {
+        ///	width:100%;
+        ///	float:none
+        ///}
+        ///}@media screen and (min-width:2108px) {
+        ///	div#work_left {
+        ///	max-width:900px
+        ///}
+        ///}div#work_right {
+        ///	margin-left:920px
+        ///}
+        ///@media screen and (max-width:2107px) {
+        ///	div#work_right {
+        ///	margin-left:calc(50% + 20px [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        internal static string WorkTemplate {
+            get {
+                return ResourceManager.GetString("WorkTemplate", resourceCulture);
+            }
+        }
     }
 }

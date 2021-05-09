@@ -88,6 +88,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ContentPage.Designer.cs">
+      <DependentUpon>ContentPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
     <Compile Include="InfoFormat\RJInfo.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="ExplorerForm.cs">
@@ -134,6 +146,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ContentPage.resx">
+      <DependentUpon>ContentPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TopWindow.resx">
       <DependentUpon>TopWindow.cs</DependentUpon>
     </EmbeddedResource>

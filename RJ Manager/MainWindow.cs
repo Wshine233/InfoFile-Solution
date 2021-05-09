@@ -24,7 +24,7 @@ namespace RJ_Manager
             public String fullPath;
             public bool? fuzzy;
         };
-        
+
         //public static Dictionary<int,RJFile> rjf = new Dictionary<int, RJFile>();
 
         public struct Pack
@@ -39,12 +39,12 @@ namespace RJ_Manager
             String name;
             int num;
             RJFile? file;
-            
+
             public RJFile File
             {
                 get
                 {
-                    if(file != null)
+                    if (file != null)
                     {
                         return (RJFile)file;
                     }
@@ -106,23 +106,24 @@ namespace RJ_Manager
             comboBox1.Items.Clear();
             pictureBox1.Image = null;
             linkLabel1.Text = "?";
-            if ((listBox1.SelectedItem as ListInfo).File.RJ == "?") {
+            if ((listBox1.SelectedItem as ListInfo).File.RJ == "?")
+            {
                 loadInfo("");
                 button1.Enabled = true;
                 button5.Enabled = false;
-                return; 
+                return;
             }
 
             button5.Enabled = true;
             String[] s = (listBox1.SelectedItem as ListInfo).File.RJ.Split(',');
-            foreach(String ss in s)
+            foreach (String ss in s)
             {
                 comboBox1.Items.Add(ss);
             }
             comboBox1.SelectedItem = s[0];
             button1.Enabled = true;
             loadInfo(s[0]);
-            
+
         }
 
         private void loadInfo(String rj)
@@ -148,18 +149,19 @@ namespace RJ_Manager
             }*/
             pictureBox1.Image = null;
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            
-            if((listBox1.SelectedItem as ListInfo).File.RJ == "?") {
+
+            if ((listBox1.SelectedItem as ListInfo).File.RJ == "?")
+            {
                 this.now_url = "-";
                 //return; 
             }
 
-            
-            if((listBox1.SelectedItem as ListInfo).getNum() < 0) { return; }
+
+            if ((listBox1.SelectedItem as ListInfo).getNum() < 0) { return; }
             FileInfo info = new FileInfo((listBox1.SelectedItem as ListInfo).File.fullPath);
             if (!info.Exists)
             {
-                MessageBox.Show("文件已被删除、重命名或移动","找不到文件",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                MessageBox.Show("文件已被删除、重命名或移动", "找不到文件", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 button5.Enabled = false;
                 return;
             }
@@ -171,12 +173,12 @@ namespace RJ_Manager
 
             linkLabel1.Text = (listBox1.SelectedItem as ListInfo).File.RJ;
             this.now_url = "https://img.dlsite.jp/modpub/images2/work/doujin/RJ" + (int.Parse(rj.Substring(2, 3)) + 1).ToString("000") + "000/" + rj + "_img_main.jpg";
-            if(pictureBox1.Image != null) { pictureBox1.Image.Dispose(); }
+            if (pictureBox1.Image != null) { pictureBox1.Image.Dispose(); }
             pictureBox1.Image = Resources.Resource1.Wait;
 
             picDownloader = new Thread(new ParameterizedThreadStart(loadPicAsync)); //下载线程
             Pack k;
-            k.refresh = ((forceRefresh && (MessageBox.Show(this, "是否删除缓存？建议只在异常时使用！", "警告", MessageBoxButtons.YesNo).Equals(DialogResult.Yes))) || (shouldCheckRefresh && (lastIndex == listBox1.SelectedIndex) && (lastLastIndex == listBox1.SelectedIndex) && (MessageBox.Show(this,"是否删除缓存？建议只在异常时使用！","警告",MessageBoxButtons.YesNo).Equals(DialogResult.Yes))));
+            k.refresh = ((forceRefresh && (MessageBox.Show(this, "是否删除缓存？建议只在异常时使用！", "警告", MessageBoxButtons.YesNo).Equals(DialogResult.Yes))) || (shouldCheckRefresh && (lastIndex == listBox1.SelectedIndex) && (lastLastIndex == listBox1.SelectedIndex) && (MessageBox.Show(this, "是否删除缓存？建议只在异常时使用！", "警告", MessageBoxButtons.YesNo).Equals(DialogResult.Yes))));
             k.url = now_url;
             k.rj = rj;
             if (shouldCheckRefresh)
@@ -191,11 +193,11 @@ namespace RJ_Manager
                     lastLastIndex = lastIndex;
                     lastIndex = listBox1.SelectedIndex;
                 }
-                
+
             }
-            
+
             picDownloader.Start(k);
-            
+
         }
 
         private void loadPicAsync(object pack)
@@ -237,15 +239,15 @@ namespace RJ_Manager
                     wr.Close();
                     Utils.encrypt(inf, "RJ");
                 }
-                
+
                 String name = docs.Substring(docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">"), docs.IndexOf("</h1>") - docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">") + 1);
                 //MessageBox.Show(name);
                 name = name.Substring(name.IndexOf("one-link-mark=\"yes\">") + 20, name.LastIndexOf("</a>") - name.IndexOf("one-link-mark=\"yes\">") - 20);
-                name = name.Substring(name.LastIndexOf('>')+1);
+                name = name.Substring(name.LastIndexOf('>') + 1);
                 //MessageBox.Show(name);
                 if (this.now_url != p.url)
                 {
-                    
+
                     Thread.CurrentThread.Abort();
                 }
                 else
@@ -257,11 +259,11 @@ namespace RJ_Manager
                         toolTip1.SetToolTip(linkLabel1, name);
                     })
                     );
-                    
+
                 }
 
                 FileInfo info = new FileInfo("CachePic\\" + p.url.Substring(p.url.LastIndexOf("/") + 1, 8) + ".jpg");
-                if (!p.refresh && info.Exists && info.Length>0)
+                if (!p.refresh && info.Exists && info.Length > 0)
                 {
                     Utils.decrypt(info, "RJ");
                     StreamReader rd = info.OpenText();
@@ -284,10 +286,10 @@ namespace RJ_Manager
 
                 //WebClient a = new WebClient();
                 //info.OpenText().Close();
-                byte[] buffer =  a.DownloadData(p.url);
-                
+                byte[] buffer = a.DownloadData(p.url);
+
                 //pictureBox1.Image = Image.FromFile("CachePic\\" + now_url.ToString().Substring(now_url.ToString().LastIndexOf("/") + 1, 8));
-                
+
                 if (!info.Exists)
                 {
                     info.Create().Close();
@@ -312,7 +314,7 @@ namespace RJ_Manager
                 m.Close();
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 //MessageBox.Show(e.Message, "Exception");
             }
@@ -326,7 +328,7 @@ namespace RJ_Manager
             int level = 0;
             double a = (double)m;
             String[] unit = { "B", "KB", "MB", "GB", "TB" };
-            while(m/1024 > 0)
+            while (m / 1024 > 0)
             {
                 m /= 1024;
                 level++;
@@ -334,15 +336,6 @@ namespace RJ_Manager
             }
             return a.ToString("0.##") + unit[level];
         }
-
-        private void 文件夹管理ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FolderManager fd = new FolderManager();
-            fd.Show();
-
-        }
-
-
 
         private void 刷新ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -360,12 +353,12 @@ namespace RJ_Manager
                     listBox1.Items.Add(new ListInfo(folder, -2, null));
                     listBox1.Items.Add(new ListInfo("-----------------------------", -1, null));
                     RJFile c;
-                    
-                    foreach(FileInfo f in info.GetFiles())
+
+                    foreach (FileInfo f in info.GetFiles())
                     {
                         c.fullPath = f.FullName;
                         c.RJ = "";
-                        foreach(Match match in Regex.Matches(f.Name, pattern))
+                        foreach (Match match in Regex.Matches(f.Name, pattern))
                         {
                             if (c.RJ.Length > 0)
                             {
@@ -398,7 +391,7 @@ namespace RJ_Manager
                 }
             }
 
-            if(co != null) co.Clear();
+            if (co != null) co.Clear();
 
             foreach (Object o in listBox1.Items)
             {
@@ -406,7 +399,7 @@ namespace RJ_Manager
             }
 
             filter();
-            
+
         }
 
         private void Open_Click(object sender, EventArgs e)
@@ -437,7 +430,7 @@ namespace RJ_Manager
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            loadInfo(comboBox1.SelectedItem.ToString(),false);
+            loadInfo(comboBox1.SelectedItem.ToString(), false);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -457,23 +450,23 @@ namespace RJ_Manager
 
         private void pictureBox1_LoadProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            
+
 
         }
 
         private void pictureBox1_LoadCompleted(object sender, AsyncCompletedEventArgs e)
         {
-            
-            
+
+
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if(comboBox1.SelectedItem != null)
+            if (comboBox1.SelectedItem != null)
             {
                 try
                 {
-                    System.Diagnostics.Process.Start("https://www.dlsite.com/maniax/work/=/product_id/"+comboBox1.SelectedItem+".html");
+                    System.Diagnostics.Process.Start("https://www.dlsite.com/maniax/work/=/product_id/" + comboBox1.SelectedItem + ".html");
                 }
                 catch (System.ComponentModel.Win32Exception noBrowser)
                 {
@@ -500,7 +493,7 @@ namespace RJ_Manager
         private void listBox1_MouseMove(object sender, MouseEventArgs e)
         {
             int index = (sender as ListBox).IndexFromPoint(e.Location);
-            
+
             if (index != ListBox.NoMatches)
             {
                 String text = listBox1.Items[index].ToString(); //+ "\n" + ((ListInfo)listBox1.Items[index]).getNum().ToString();
@@ -523,7 +516,7 @@ namespace RJ_Manager
             }
         }
 
-        
+
         private void fb2_Click(object sender, EventArgs e)
         {
             fb2.BackColor = fb2.BackColor == Color.DarkGray ? Color.Transparent : Color.DarkGray;
@@ -531,11 +524,11 @@ namespace RJ_Manager
             //r.regex = @"[R|r][J|j][0-9]{6}";
             r = (info) =>
             {
-                 return info.File.fuzzy == null && info.getNum() >= 0;
+                return info.File.fuzzy == null && info.getNum() >= 0;
             };
 
             if (fb2.BackColor != Color.Transparent)
-            { 
+            {
                 regexes.Add(r);
             }
             else
@@ -580,36 +573,36 @@ namespace RJ_Manager
             bool flag = false;
             List<Object> deleteList = new List<Object>();
             //rjf.Clear();
-            foreach(Object o in co)
+            foreach (Object o in co)
             {
-                if((o.ToString()) == "-----------------------------")
+                if ((o.ToString()) == "-----------------------------")
                 {
                     flag = !flag;
                 }
                 else if (!flag)
                 {
-                    foreach(Aregex a in regexes)
+                    foreach (Aregex a in regexes)
                     {
-                        if(a(o as ListInfo))
+                        if (a(o as ListInfo))
                         {
                             deleteList.Add(o);
                             break;
                         }
                     }
-                    
+
                 }
             }
 
             listBox1.Items.Clear();
             //TODO:把RJFile重构到ListInfo类里，之后就不需要字典了
             //TODO:顺便更新一下博客教大家如何在ListInfo里放Object
-            foreach(Object o in co)
+            foreach (Object o in co)
             {
                 if (!deleteList.Contains(o))
                 {
                     listBox1.Items.Add(o);
                 }
-                
+
             }
         }
 
@@ -632,42 +625,9 @@ namespace RJ_Manager
             filter();
         }
 
-        private void 设置工作文件夹ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if(folderBrowserDialog1.ShowDialog() == DialogResult.OK)
-            {
-                FileInfo info = new FileInfo("WorkDirectory.db");
-                info.Open(FileMode.Create).Close();
-                StreamWriter writer = info.CreateText();
-                workDirectory = folderBrowserDialog1.SelectedPath;
-                writer.WriteLine(workDirectory);
-                writer.Close();
-            }
-        }
-
-        private void 打开工作文件夹ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (workDirectory.Length > 0)
-            {
-                DirectoryInfo info = new DirectoryInfo(workDirectory);
-                if (info.Exists)
-                {
-                    System.Diagnostics.ProcessStartInfo inf = new System.Diagnostics.ProcessStartInfo("Explorer.exe");
-                    inf.Arguments = workDirectory;
-                    Process p = new Process();
-                    p.StartInfo = inf;
-                    p.Start();
-                }
-                else
-                {
-                    MessageBox.Show("请先指定合法的工作文件夹(可以将RJ作品快速放至工作文件夹进行处理)");
-                }
-            }
-        }
-
         private void button5_Click(object sender, EventArgs e)
         {
-            if(new DirectoryInfo(workDirectory).Exists == false)
+            if (new DirectoryInfo(workDirectory).Exists == false)
             {
                 MessageBox.Show("未指定有效的工作文件夹\n（" + workDirectory + "）");
                 return;
@@ -691,19 +651,19 @@ namespace RJ_Manager
                 }
                 else
                 {
-                    MessageBox.Show(this, "文件不存在", "错误",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show(this, "文件不存在", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         private void comboBox1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void comboBox1_MouseClick(object sender, MouseEventArgs e)
         {
-            
+
         }
 
         private void pictureBox1_MouseClick(object sender, MouseEventArgs e)
@@ -721,26 +681,15 @@ namespace RJ_Manager
 
         private void MainW_MouseClick(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {
-                
+
             }
-        }
-
-        private void 窗口置顶ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            //this.TopMost = !this.TopMost;
-        }
-
-        private void 置顶窗口ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-            this.TopMost = (sender as ToolStripMenuItem).Checked;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            
+
             Aregex r;
             //r.regex = @"(?<!\d)(\d{6}(?!\d))";
             r = (info) =>
@@ -757,12 +706,12 @@ namespace RJ_Manager
                 regexes.Remove(r);
             }
             filter();
-           
+
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
-            if((sender as DateTimePicker).Value.Date.CompareTo(dateTimePicker2.Value.Date) > 0)
+            if ((sender as DateTimePicker).Value.Date.CompareTo(dateTimePicker2.Value.Date) > 0)
             {
                 dateTimePicker2.Value = dateTimePicker1.Value;
                 return;
@@ -794,7 +743,7 @@ namespace RJ_Manager
             {
                 return !info.ToString().Contains(textBox1.Text);
             };
-            if(!regexes.Contains(r))
+            if (!regexes.Contains(r))
             {
                 regexes.Add(r);
             }
