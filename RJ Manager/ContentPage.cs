@@ -167,7 +167,7 @@ namespace RJ_Manager
             }
             Namel.Text = "文件名：" + info.Name;
             Typel.Text = "创建时间：" + info.CreationTime;
-            Sizel.Text = "文件大小：" + fileSize(info.Length);
+            Sizel.Text = "文件大小：" + Utils.FileSize(info.Length);
 
             if ((listBox1.SelectedItem as ListInfo).File.RJ == "?" || rj == "") { return; }
 
@@ -223,11 +223,11 @@ namespace RJ_Manager
                 String docs;
                 if (inf.Exists && !p.refresh)
                 {
-                    Utils.decrypt(inf, "RJ");
+                    Utils.Decrypt(inf, "RJ");
                     StreamReader r = inf.OpenText();
                     docs = r.ReadToEnd();
                     r.Close();
-                    Utils.encrypt(inf, "RJ");
+                    Utils.Encrypt(inf, "RJ");
                 }
                 else
                 {
@@ -237,7 +237,7 @@ namespace RJ_Manager
                     StreamWriter wr = inf.CreateText();
                     wr.Write(docs);
                     wr.Close();
-                    Utils.encrypt(inf, "RJ");
+                    Utils.Encrypt(inf, "RJ");
                 }
 
                 String name = docs.Substring(docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">"), docs.IndexOf("</h1>") - docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">") + 1);
@@ -265,13 +265,13 @@ namespace RJ_Manager
                 FileInfo info = new FileInfo("CachePic\\" + p.url.Substring(p.url.LastIndexOf("/") + 1, 8) + ".jpg");
                 if (!p.refresh && info.Exists && info.Length > 0)
                 {
-                    Utils.decrypt(info, "RJ");
+                    Utils.Decrypt(info, "RJ");
                     StreamReader rd = info.OpenText();
 
                     if (this.now_url != p.url)
                     {
                         rd.Close();
-                        Utils.encrypt(info, "RJ");
+                        Utils.Encrypt(info, "RJ");
                         Thread.CurrentThread.Abort();
                         return;
                     }
@@ -280,7 +280,7 @@ namespace RJ_Manager
                         pictureBox1.Image = Image.FromStream(rd.BaseStream);
                     }
                     rd.Close();
-                    Utils.encrypt(info, "RJ");
+                    Utils.Encrypt(info, "RJ");
                     return;
                 }
 
@@ -296,13 +296,13 @@ namespace RJ_Manager
                 }
                 else
                 {
-                    Utils.decrypt(info, "RJ");
+                    Utils.Decrypt(info, "RJ");
                 }
 
                 FileStream x = info.OpenWrite();
                 x.Write(buffer, 0, buffer.Length);
                 x.Close();
-                Utils.encrypt(info, "RJ");
+                Utils.Encrypt(info, "RJ");
 
 
                 if (this.now_url != p.url)
@@ -320,21 +320,6 @@ namespace RJ_Manager
             }
 
 
-        }
-
-        public static string fileSize(long length)
-        {
-            long m = length;
-            int level = 0;
-            double a = (double)m;
-            String[] unit = { "B", "KB", "MB", "GB", "TB" };
-            while (m / 1024 > 0)
-            {
-                m /= 1024;
-                level++;
-                a /= 1024.0;
-            }
-            return a.ToString("0.##") + unit[level];
         }
 
         public void RefreshFiles()
@@ -435,7 +420,7 @@ namespace RJ_Manager
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            Logging.Text = picDownloader == null ? "Null" : picDownloader.ThreadState.ToString();
+            Logging.Text = (picDownloader == null ? "Null" : picDownloader.ThreadState.ToString());
             /*if (comboBox1.SelectedItem != null && pictureBox1.Image != null && pictureBox1.Image != Resources.Resource1.Wait && picDownloader!=null && picDownloader.ThreadState.Equals(System.Threading.ThreadState.Stopped))
             {
                 this.loaded_rj = comboBox1.SelectedItem.ToString();

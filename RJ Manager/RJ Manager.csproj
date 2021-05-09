@@ -94,6 +94,8 @@
     <Compile Include="ContentPage.Designer.cs">
       <DependentUpon>ContentPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="EventHandlers\TabEventHandler.cs" />
+    <Compile Include="Factories\TabFactory.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

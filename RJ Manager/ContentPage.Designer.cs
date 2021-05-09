@@ -61,6 +61,7 @@
             this.fb1 = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.Options.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -98,6 +99,8 @@
             this.listBox1.Size = new System.Drawing.Size(208, 496);
             this.listBox1.TabIndex = 7;
             this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.listBox1.MouseLeave += new System.EventHandler(this.listBox1_MouseLeave);
+            this.listBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.listBox1_MouseMove);
             // 
             // Options
             // 
@@ -408,6 +411,11 @@
             this.linkLabel1.Text = "linkLabel1";
             this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // ContentPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -465,5 +473,6 @@
         private System.Windows.Forms.Button fb1;
         private System.Windows.Forms.LinkLabel linkLabel1;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Timer timer1;
     }
 }

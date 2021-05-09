@@ -56,7 +56,7 @@ namespace RJ_Manager
                         ListViewItem item = new ListViewItem();
                         item.Text = info.Name;
                         item.SubItems.Add(k.Key);
-                        item.SubItems.Add(MainW.fileSize(info.Length));
+                        item.SubItems.Add(Utils.FileSize(info.Length));
                         item.SubItems.Add(d.RJ);
                         item.SubItems.Add(d.fullPath);
                         item.BackColor = a ? Color.FromArgb(0xE9E6FF) : Color.White;
