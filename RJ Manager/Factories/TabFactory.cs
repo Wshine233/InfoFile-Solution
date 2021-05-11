@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RJ_Manager.CustomControls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,7 @@ namespace RJ_Manager.Factories
         public static TabPage GetNewTabPage(String title, TabType type)
         {
             TabPage page = new TabPage(title);
+            page.Width = TextRenderer.MeasureText(title, WebTab.TEXT_FONT).Width + WebTab.MARGIN * 2 + 8 + WebTab.MARGIN;
 
             switch (type)
             {
@@ -28,4 +30,6 @@ namespace RJ_Manager.Factories
             return page;
         }
     }
+
+    
 }

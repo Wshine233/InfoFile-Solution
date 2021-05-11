@@ -34,7 +34,6 @@
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.窗口置顶ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabs = new System.Windows.Forms.TabControl();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.刷新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,6 +46,9 @@
             this.打开工作文件夹ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.置顶窗口ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
+            this.新窗口ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.目录窗口ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tabs = new RJ_Manager.CustomControls.WebTab();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -69,19 +71,12 @@
             this.窗口置顶ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
             this.窗口置顶ToolStripMenuItem.Text = "窗口置顶";
             // 
-            // tabs
-            // 
-            this.tabs.Location = new System.Drawing.Point(0, 28);
-            this.tabs.Name = "tabs";
-            this.tabs.SelectedIndex = 0;
-            this.tabs.Size = new System.Drawing.Size(813, 544);
-            this.tabs.TabIndex = 9;
-            // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Window;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem1});
+            this.toolStripMenuItem1,
+            this.新窗口ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(812, 25);
@@ -164,6 +159,33 @@
             this.置顶窗口ToolStripMenuItem.Text = "置顶窗口";
             this.置顶窗口ToolStripMenuItem.Click += new System.EventHandler(this.置顶窗口ToolStripMenuItem_Click);
             // 
+            // 新窗口ToolStripMenuItem
+            // 
+            this.新窗口ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.目录窗口ToolStripMenuItem});
+            this.新窗口ToolStripMenuItem.Name = "新窗口ToolStripMenuItem";
+            this.新窗口ToolStripMenuItem.Size = new System.Drawing.Size(56, 21);
+            this.新窗口ToolStripMenuItem.Text = "新窗口";
+            // 
+            // 目录窗口ToolStripMenuItem
+            // 
+            this.目录窗口ToolStripMenuItem.Name = "目录窗口ToolStripMenuItem";
+            this.目录窗口ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.目录窗口ToolStripMenuItem.Text = "目录窗口";
+            this.目录窗口ToolStripMenuItem.Click += new System.EventHandler(this.目录窗口ToolStripMenuItem_Click);
+            // 
+            // tabs
+            // 
+            this.tabs.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.tabs.ItemSize = new System.Drawing.Size(55, 0);
+            this.tabs.Location = new System.Drawing.Point(0, 28);
+            this.tabs.Name = "tabs";
+            this.tabs.SelectedIndex = 0;
+            this.tabs.Size = new System.Drawing.Size(813, 544);
+            this.tabs.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.tabs.TabIndex = 9;
+            this.tabs.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabs_DrawItem);
+            // 
             // MainW
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -191,7 +213,7 @@
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 窗口置顶ToolStripMenuItem;
-        private System.Windows.Forms.TabControl tabs;
+        private CustomControls.WebTab tabs;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem 刷新ToolStripMenuItem;
@@ -204,5 +226,7 @@
         private System.Windows.Forms.ToolStripMenuItem 打开工作文件夹ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 置顶窗口ToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTip2;
+        private System.Windows.Forms.ToolStripMenuItem 新窗口ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 目录窗口ToolStripMenuItem;
     }
 }

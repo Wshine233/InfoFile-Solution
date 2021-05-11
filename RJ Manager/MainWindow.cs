@@ -13,6 +13,7 @@ using System.Threading;
 using System.Net;
 using System.Text;
 using RJ_Manager.Factories;
+using RJ_Manager.CustomControls;
 
 namespace RJ_Manager
 {
@@ -83,14 +84,12 @@ namespace RJ_Manager
         }
 
         public static List<Object> co = new List<object>();
-        private String now_url = "";       //被要求加载的url
-        Thread picDownloader = null;   //下载线程
 
         public MainW()
         {
             InitializeComponent();
 
-            tabs.TabPages.Add(TabFactory.GetNewTabPage("管理目录", TabType.Content));
+            tabs.AddPage(TabFactory.GetNewTabPage("管理目录", TabType.Content));
 
 
             FileInfo info = new FileInfo("WorkDirectory.db");
@@ -160,6 +159,16 @@ namespace RJ_Manager
         {
             (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
             this.TopMost = (sender as ToolStripMenuItem).Checked;
+        }
+
+        private void tabs_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            
+        }
+
+        private void 目录窗口ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tabs.AddPage(TabFactory.GetNewTabPage("草草草草草草草草草草", TabType.Content));
         }
     }
 }

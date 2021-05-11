@@ -20,7 +20,6 @@ namespace RJ_Manager
         {
             InitializeComponent();
             listView1.Items.Clear();
-            
         }
 
         public void finding(Object sender)
