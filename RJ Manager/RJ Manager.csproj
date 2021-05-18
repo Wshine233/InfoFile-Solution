@@ -105,6 +105,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="HTMLProcesser\HTMLHelper.cs" />
+    <Compile Include="HTMLProcesser\HTMLParser.cs" />
+    <Compile Include="HTMLProcesser\NodeEx.cs" />
     <Compile Include="InfoFormat\RJInfo.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="ExplorerForm.cs">
@@ -234,5 +237,6 @@
   <ItemGroup>
     <None Include="Resources\x.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

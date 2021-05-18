@@ -12,6 +12,10 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using RJ_Manager.HTMLProcesser;
+using Winista.Text.HtmlParser;
+using Winista.Text.HtmlParser.Nodes;
+using RJ_Manager.InfoFormat;
 
 namespace RJ_Manager
 {
@@ -240,10 +244,11 @@ namespace RJ_Manager
                     Utils.Encrypt(inf, "RJ");
                 }
 
-                String name = docs.Substring(docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">"), docs.IndexOf("</h1>") - docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">") + 1);
+                String name = RJInfo.GetWorkName(docs);
+                //String name = docs.Substring(docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">"), docs.IndexOf("</h1>") - docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">") + 1);
                 //MessageBox.Show(name);
-                name = name.Substring(name.IndexOf("one-link-mark=\"yes\">") + 20, name.LastIndexOf("</a>") - name.IndexOf("one-link-mark=\"yes\">") - 20);
-                name = name.Substring(name.LastIndexOf('>') + 1);
+                //name = name.Substring(name.IndexOf("one-link-mark=\"yes\">") + 20, name.LastIndexOf("</a>") - name.IndexOf("one-link-mark=\"yes\">") - 20);
+                //name = name.Substring(name.LastIndexOf('>') + 1);
                 //MessageBox.Show(name);
                 if (this.now_url != p.url)
                 {
@@ -733,6 +738,20 @@ namespace RJ_Manager
                 regexes.Add(r);
             }
             filter();
+        }
+
+        private void Mo_Click(object sender, EventArgs e)
+        {
+            FileInfo inf = new FileInfo("CachePic\\" + "RJ320191" + ".html");
+            String docs;
+            StreamReader r = inf.OpenText();
+            docs = r.ReadToEnd();
+            r.Close();
+            HTMLParser p = HTMLParser.GetByHTML(docs);
+            INode node = p.GetFirstNode("id", "work_name");
+
+            MessageBox.Show((node).ToPlainTextStringEx());
+
         }
     }
 }

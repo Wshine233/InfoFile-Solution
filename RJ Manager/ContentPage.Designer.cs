@@ -80,6 +80,7 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 9;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
             // 
             // Logging
             // 
@@ -153,6 +154,7 @@
             this.Mo.TabIndex = 8;
             this.Mo.Text = "补齐";
             this.Mo.UseVisualStyleBackColor = true;
+            this.Mo.Click += new System.EventHandler(this.Mo_Click);
             // 
             // button1
             // 
@@ -410,6 +412,7 @@
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "linkLabel1";
             this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // timer1
             // 
