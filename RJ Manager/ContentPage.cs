@@ -132,7 +132,7 @@ namespace RJ_Manager
 
         private void loadInfo(String rj)
         {
-            loadInfo(rj, false);
+            loadInfo(rj, false, false);
         }
 
         private void loadInfo(String rj, bool shouldCheckRefresh)
@@ -182,7 +182,7 @@ namespace RJ_Manager
 
             picDownloader = new Thread(new ParameterizedThreadStart(loadPicAsync)); //下载线程
             Pack k;
-            k.refresh = ((forceRefresh && (MessageBox.Show(this, "是否删除缓存？建议只在异常时使用！", "警告", MessageBoxButtons.YesNo).Equals(DialogResult.Yes))) || (shouldCheckRefresh && (lastIndex == listBox1.SelectedIndex) && (lastLastIndex == listBox1.SelectedIndex) && (MessageBox.Show(this, "是否删除缓存？建议只在异常时使用！", "警告", MessageBoxButtons.YesNo).Equals(DialogResult.Yes))));
+            k.refresh = ((forceRefresh && (MessageBox.Show(this, "是否删除缓存？建议只在异常时使用！", "警告", MessageBoxButtons.YesNo).Equals(DialogResult.Yes))));
             k.url = now_url;
             k.rj = rj;
             if (shouldCheckRefresh)
@@ -244,12 +244,11 @@ namespace RJ_Manager
                     Utils.Encrypt(inf, "RJ");
                 }
 
-                String name = RJInfo.GetWorkName(docs);
-                //String name = docs.Substring(docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">"), docs.IndexOf("</h1>") - docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">") + 1);
-                //MessageBox.Show(name);
-                //name = name.Substring(name.IndexOf("one-link-mark=\"yes\">") + 20, name.LastIndexOf("</a>") - name.IndexOf("one-link-mark=\"yes\">") - 20);
-                //name = name.Substring(name.LastIndexOf('>') + 1);
-                //MessageBox.Show(name);
+                //String name = RJInfo.GetWorkName(docs);   速度太慢
+                String name = docs.Substring(docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">"), docs.IndexOf("</h1>") - docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">") + 1);
+                name = name.Substring(name.IndexOf("one-link-mark=\"yes\">") + 20, name.LastIndexOf("</a>") - name.IndexOf("one-link-mark=\"yes\">") - 20);
+                name = name.Substring(name.LastIndexOf('>') + 1);
+                name = HTMLHelper.ReplaceSpecialCharacters(name);
                 if (this.now_url != p.url)
                 {
 
