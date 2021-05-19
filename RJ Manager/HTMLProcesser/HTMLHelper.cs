@@ -74,5 +74,32 @@ namespace RJ_Manager.HTMLProcesser
                 }
             }
         }
+
+        public static String TrimAll(this String s)
+        {
+            String after = "";
+            s = s.Replace("\n", " ");
+            s = s.Replace("\t", " ");
+
+            bool space = false;
+            foreach(char c in s)
+            {
+                if(c == ' ')
+                {
+                    if (!space)
+                    {
+                        after += " ";
+                        space = true;
+                    }
+                }
+                else
+                {
+                    after += c;
+                    space = false;
+                }
+            }
+
+            return after;
+        }
     }
 }
