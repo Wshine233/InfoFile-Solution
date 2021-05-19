@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace InfoFileFormat
 {
     [Serializable]
-    public class InfoGroup : BaseInfoType
+    public class InfoGroup<E> : BaseInfoType
     {
-        public Dictionary<String, BaseInfoType> InfoList
+        public Dictionary<String, E> InfoList
         {
             get;
             set;
 
-        } = new Dictionary<String, BaseInfoType>();
+        } = new Dictionary<String, E>();
 
 
         public InfoGroup(String name) 
@@ -42,6 +42,19 @@ namespace InfoFileFormat
             }
 
             return -1;
+        }
+
+
+        public E[] ToInfoArray()
+        {
+            E[] array = new E[Count()];
+
+            foreach(KeyValuePair<String, E> info in InfoList)
+            {
+                array.Append(info.Value);
+            }
+
+            return array;
         }
 
 

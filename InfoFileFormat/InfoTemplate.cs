@@ -88,7 +88,7 @@ namespace InfoFileFormat
         }
 
 
-        public InfoGroup GetByTemplate(InfoFile file)
+        public InfoGroup<BaseInfoType> GetByTemplate(InfoFile file)
         {
             if(!Check(file, false))
             {
@@ -105,7 +105,7 @@ namespace InfoFileFormat
                 }
             }
 
-            InfoGroup group = new InfoGroup(this.Name);
+            InfoGroup<BaseInfoType> group = new InfoGroup<BaseInfoType>(this.Name);
             foreach(KeyValuePair<String, BaseInfoType> info in listArray)
             {
                 group.InfoList.Add(info.Key, info.Value);
