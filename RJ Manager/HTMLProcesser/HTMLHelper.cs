@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Winista.Text.HtmlParser;
+using Winista.Text.HtmlParser.Nodes;
+using Winista.Text.HtmlParser.Util;
 
 namespace RJ_Manager.HTMLProcesser
 {
@@ -57,6 +60,19 @@ namespace RJ_Manager.HTMLProcesser
             }
 
             return s;
+        }
+
+        public static void RemoveMeaninglessNodes(this NodeList list)
+        {
+            for(int i = 0; i < list.Count; i++)
+            {
+                INode node = list.ElementAt(i);
+
+                if(node is TextNode && node.ToPlainTextStringEx().Trim().Equals(""))
+                {
+                    list.Remove(node);
+                }
+            }
         }
     }
 }
