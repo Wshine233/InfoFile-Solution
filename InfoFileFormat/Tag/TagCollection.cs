@@ -77,7 +77,7 @@ namespace InfoFileFormat
 
         public override string ToString()
         {
-            string a = name;
+            string a = "";
             Tag[] tagArray = new Tag[tags.Count];
             tags.CopyTo(tagArray);
             for (int i = 0; i < tagArray.Length; i++)
@@ -89,19 +89,6 @@ namespace InfoFileFormat
                 a += tagArray[i];
                 
             }
-            return a;
-        }
-
-        public String[] ToPlainTexts()
-        {
-            String[] a = new String[tags.Count];
-            Tag[] tagArray = new Tag[tags.Count];
-            tags.CopyTo(tagArray);
-            for (int i = 0; i < tagArray.Length; i++)
-            {
-                a[i] = tagArray[i].Content;
-            }
-
             return a;
         }
     }
