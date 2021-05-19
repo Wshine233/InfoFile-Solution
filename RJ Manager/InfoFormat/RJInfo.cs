@@ -17,6 +17,84 @@ namespace RJ_Manager.InfoFormat
         ko_KR = 4
     }
 
+
+    public class LocaleTexts
+    {
+        public readonly static String[,] texts = {
+            {"名前", "WorkName", "作品名", "作品名", "이름"},
+            {"サークル名", "Circle", "社团名", "社團名", "서클명"},
+            {"画像", "Image", "封面图", "封面圖", "영상"},
+            {"販売日", "Release date", "贩卖日","販賣日",  "판매일"},
+            {"年齢指定", "Age", "年龄指定", "年齡指定", "연령 지정"},
+            {"作品形式", "Product format", "作品类型", "作品形式", "작품 형식"},
+            {"ファイル形式", "File format", "文件形式", "檔案形式", "파일 형식"},
+            {"ジャンル", "Genre", "分类", "分類", "장르"},
+            {"ファイル容量", "File size", "文件容量", "檔案容量", "파일 용량"},
+
+            {"シリーズ名", "Series name", "系列名", "系列名", "시리즈명"},
+            {"最終更新日", "Last updated", "最终更新日", "最終更新日", "최종 갱신일"},
+            {"作者", "Author", "作者", "作者", "저자"},
+            {"シナリオ", "Scenario", "剧情", "劇本", "시나리오"},
+            {"イラスト", "Illustration", "插画", "插畫", "일러스트"},
+            {"声優", "Voice Actor", "声优", "聲優", "성우"},
+            {"対応言語", "Supported languages", "对应语言", "對應語言", "대응 언어"},
+            {"作品内容", "Product summary", "作品内容", "作品內容", "작품 내용"},
+            {"評価", "Rating", "评价", "評價", "평가"}
+        };
+
+        public static bool IsEqual(String a, String b)
+        {
+            int posA = -1;
+            int posB = -2;
+
+            for(int i = 0; i < 18; i++)
+            {
+                for(int j = 0; j < 5; j++)
+                {
+                    if (texts[i, j].Equals(a))
+                    {
+                        posA = i;
+                    }
+
+                    if (texts[i, j].Equals(b))
+                    {
+                        posB = i;
+                    }
+                }
+            }
+
+            return posA == posB;
+        }
+
+        public static Locale? GetLanguage(String s)
+        {
+            for (int i = 0; i < 18; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    if (texts[i, j].Equals(s))
+                    {
+                        switch (i)
+                        {
+                            case 0:
+                                return Locale.ja_JP;
+                            case 1:
+                                return Locale.en_US;
+                            case 2:
+                                return Locale.zh_CN;
+                            case 3:
+                                return Locale.zh_TW;
+                            case 4:
+                                return Locale.ko_KR;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+    }
+
     
     public static class RJInfo
     {
