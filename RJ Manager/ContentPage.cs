@@ -750,6 +750,7 @@ namespace RJ_Manager
 
             RJOutline o = new RJOutline(docs);
             MessageBox.Show(o.Age);
+            o.ToInfoGroup();
 
             /*HTMLParser p = HTMLParser.GetByHTML(docs);
             INode node = p.GetFirstNode("id", "work_name");
