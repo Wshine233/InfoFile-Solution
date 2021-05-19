@@ -747,10 +747,14 @@ namespace RJ_Manager
             StreamReader r = inf.OpenText();
             docs = r.ReadToEnd();
             r.Close();
-            HTMLParser p = HTMLParser.GetByHTML(docs);
+
+            RJOutline o = new RJOutline(docs);
+            MessageBox.Show(o.Age);
+
+            /*HTMLParser p = HTMLParser.GetByHTML(docs);
             INode node = p.GetFirstNode("id", "work_name");
 
-            MessageBox.Show((node).ToPlainTextStringEx());
+            MessageBox.Show((node).ToPlainTextStringEx());*/
 
         }
     }

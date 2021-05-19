@@ -109,6 +109,7 @@
     <Compile Include="HTMLProcesser\HTMLParser.cs" />
     <Compile Include="HTMLProcesser\NodeEx.cs" />
     <Compile Include="InfoFormat\RJInfo.cs" />
+    <Compile Include="InfoFormat\RJOutline.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="ExplorerForm.cs">
       <SubType>Form</SubType>
