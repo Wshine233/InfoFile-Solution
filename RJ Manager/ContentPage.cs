@@ -21,21 +21,24 @@ namespace RJ_Manager
 {
     public partial class ContentPage : UserControl
     {
+        private String nowRJ;
+        private String nowHTML;
+
         public ContentPage()
         {
             InitializeComponent();
             button1.Enabled = false;
-            FileInfo info = new FileInfo("WorkDirectory.db");
+
+            /*FileInfo info = new FileInfo("WorkDirectory.db");
             if (info.Exists)
             {
                 StreamReader r = info.OpenText();
                 workDirectory = r.ReadLine();
                 r.Close();
             }
-            //rjf.Clear();
+            //rjf.Clear();*/
         }
 
-        public static String workDirectory;
         public struct RJFile
         {
             public String RJ;
@@ -243,6 +246,11 @@ namespace RJ_Manager
                     wr.Close();
                     Utils.Encrypt(inf, "RJ");
                 }
+
+                #region
+                nowRJ = p.rj;
+                nowHTML = docs;
+                #endregion
 
                 //String name = RJInfo.GetWorkName(docs);   速度太慢
                 String name = docs.Substring(docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">"), docs.IndexOf("</h1>") - docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">") + 1);
@@ -616,9 +624,9 @@ namespace RJ_Manager
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if (new DirectoryInfo(workDirectory).Exists == false)
+            if (MainW.workDirectory == null || new DirectoryInfo(MainW.workDirectory).Exists == false)
             {
-                MessageBox.Show("未指定有效的工作文件夹\n（" + workDirectory + "）");
+                MessageBox.Show("未指定有效的工作文件夹\n（" + MainW.workDirectory == null ? "Null" : MainW.workDirectory + "）");
                 return;
             }
             if (MessageBox.Show(this, "确认移动？移动后不可撤销！", "确认？", MessageBoxButtons.YesNo, MessageBoxIcon.Warning).Equals(DialogResult.Yes))
@@ -627,7 +635,7 @@ namespace RJ_Manager
                 FileInfo f = new FileInfo((listBox1.SelectedItem as ListInfo).File.fullPath);
                 if (f.Exists)
                 {
-                    FileInfo info = new FileInfo(workDirectory + "\\" + f.Name);
+                    FileInfo info = new FileInfo(MainW.workDirectory + "\\" + f.Name);
                     if (info.Exists)
                     {
                         MessageBox.Show("发现文件重名，请自行解决冲突");
@@ -635,7 +643,7 @@ namespace RJ_Manager
                         return;
                     }
                     //info.Create();
-                    f.MoveTo(workDirectory + "\\" + f.Name);
+                    f.MoveTo(MainW.workDirectory + "\\" + f.Name);
                     MessageBox.Show(this, "已将文件移至工作区", "成功", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
@@ -741,21 +749,8 @@ namespace RJ_Manager
 
         private void Mo_Click(object sender, EventArgs e)
         {
-            FileInfo inf = new FileInfo("CachePic\\" + "RJ320191" + ".html");
-            String docs;
-            StreamReader r = inf.OpenText();
-            docs = r.ReadToEnd();
-            r.Close();
-
-            RJOutline o = new RJOutline(docs);
-            MessageBox.Show(o.Age);
-            o.ToInfoGroup();
-
-            /*HTMLParser p = HTMLParser.GetByHTML(docs);
-            INode node = p.GetFirstNode("id", "work_name");
-
-            MessageBox.Show((node).ToPlainTextStringEx());*/
-
+            RJInfo inf = RJInfo.GetRJInfo(nowRJ, nowHTML);
+            MessageBox.Show(inf.GetAllInfos().ToString());
         }
     }
 }

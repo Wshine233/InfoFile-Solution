@@ -132,7 +132,7 @@ namespace RJ_Manager
 
         private void 打开工作文件夹ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (workDirectory.Length > 0)
+            if (workDirectory != null)
             {
                 DirectoryInfo info = new DirectoryInfo(workDirectory);
                 if (info.Exists)
@@ -147,6 +147,10 @@ namespace RJ_Manager
                 {
                     MessageBox.Show("请先指定合法的工作文件夹(可以将RJ作品快速放至工作文件夹进行处理)");
                 }
+            }
+            else
+            {
+                MessageBox.Show("请先指定合法的工作文件夹(可以将RJ作品快速放至工作文件夹进行处理)");
             }
         }
 

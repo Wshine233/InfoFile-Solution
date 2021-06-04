@@ -22,6 +22,7 @@ namespace RJ_Manager.HTMLProcesser
         
         public NodeList GetNodes(String attribute, String regex)
         {
+            parser.Reset();
             AttributeRegexFilter filter = new AttributeRegexFilter(attribute, regex, true);
             NodeList nodeList = this.parser.Parse(filter);
 

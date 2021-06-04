@@ -14,6 +14,7 @@ namespace RJ_Manager.InfoFormat
     public class RJOutline
     {
         Dictionary <String, String> data = new Dictionary<string, string>();
+        Locale locale;
 
         public String ReleaseDate
         {
@@ -135,6 +136,12 @@ namespace RJ_Manager.InfoFormat
 
             foreach(KeyValuePair<String, String> kv in this.data)
             {
+                if(LocaleTexts.IsEqual("文件容量", kv.Key))
+                {
+                    g.InfoList.Add(kv.Key, new LiteralText(kv.Key, kv.Value));
+                    continue;
+                }
+
                 TagCollection tc = new TagCollection(kv.Key);
 
                 if (LocaleTexts.IsEqual("分类", kv.Key))
@@ -189,6 +196,12 @@ namespace RJ_Manager.InfoFormat
             }
 
             return null;
+        }
+
+        public Locale GetLocale()
+        {
+            Locale? locale = LocaleTexts.GetLanguage(data.Keys.First());
+            return locale == null ? throw new Exception("未能确定地区") : (Locale)locale;
         }
     }
 }

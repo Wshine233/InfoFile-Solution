@@ -30,7 +30,7 @@ namespace RJ_Manager
             FileInfo f = new FileInfo("folders.db");
             if (!f.Exists)
             {
-                f.Create();
+                f.Create().Close();
             }
 
             StreamReader sr = f.OpenText();
@@ -84,6 +84,11 @@ namespace RJ_Manager
                 }
             }
             
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

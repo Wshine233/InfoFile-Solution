@@ -68,6 +68,10 @@
   <PropertyGroup>
     <SignManifests>true</SignManifests>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'EarlyAccess|AnyCPU'">
+    <OutputPath>bin\EarlyAccess\</OutputPath>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\..\..\..\..\Desktop\HtmlParser.Net Community Edition Version 1.8.0\ICSharpCode.SharpZipLib.dll</HintPath>

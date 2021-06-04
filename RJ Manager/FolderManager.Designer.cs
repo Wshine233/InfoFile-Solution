@@ -65,6 +65,7 @@
             this.button2.TabIndex = 2;
             this.button2.Text = "添加文件夹及其子文件夹";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 

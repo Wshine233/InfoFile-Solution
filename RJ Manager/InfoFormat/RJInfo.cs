@@ -2,9 +2,12 @@
 using RJ_Manager.HTMLProcesser;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using Winista.Text.HtmlParser;
 
 namespace RJ_Manager.InfoFormat
 {
@@ -93,15 +96,31 @@ namespace RJ_Manager.InfoFormat
 
             return null;
         }
+
+        public static String InLang(String s, Locale locale)
+        {
+            for (int i = 0; i < 18; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    if(texts[i,j] == s)
+                    {
+                        return texts[i, (int)locale];
+                    }
+                }
+            }
+
+            throw new Exception("无法找到该文字的语言");
+        }
     }
 
     
-    public static class RJInfo
+    public class RJInfo
     {
         /*共有项：
             作品名
-            社团名
-            预览图（组）
+            ——————社团名
+            ——————预览图（组）
             贩卖日
             年龄指定
             作品类型
@@ -116,12 +135,20 @@ namespace RJ_Manager.InfoFormat
             插画
             声优
             对应语言
-            简介
-            评分
+            ——————简介
+            ——————评分
+
+            ??版本更新情报
         */
         public readonly static String CSS = Resources.Resource1.WorkTemplate;
-
         public readonly static InfoTemplate[] localTemplates = new InfoTemplate[5];
+        public readonly static Dictionary<String, RJInfo> RJInfoPool = new Dictionary<string, RJInfo>();
+
+        public String RJNum;
+        public String html;
+
+        private HTMLParser p;
+        public RJOutline outline;
 
         static RJInfo()
         {
@@ -235,12 +262,118 @@ namespace RJ_Manager.InfoFormat
             localTemplates[4].OptionalList.Add("평가", BaseInfoType.InfoType.LiteralText);
         }
 
-
-        public static String GetWorkName(String html)
+        protected RJInfo(String rj, String html) 
         {
-            HTMLParser p = HTMLParser.GetByHTML(html);
+            this.RJNum = rj;
+            this.html = html;
+            this.p = HTMLParser.GetByHTML(html);
+            outline = new RJOutline(html);
+            
+        }
 
+        public static RJInfo GetRJInfo(String rj, String html)
+        {
+            RJInfo info;
+
+            if (RJInfoPool.ContainsKey(rj))
+            {
+                RJInfoPool[rj].html = html;
+                info = RJInfoPool[rj];
+            }
+            else
+            {
+                info = new RJInfo(rj, html);
+                RJInfoPool.Add(rj, info);
+            }
+
+            return info;
+        }
+
+        public InfoGroup<BaseInfoType> GetAllInfos()
+        {
+            InfoGroup<BaseInfoType> info = new InfoGroup<BaseInfoType>(RJNum);
+            RJOutline outline = new RJOutline(html);
+            Locale l = outline.GetLocale();
+
+            String cache = LocaleTexts.InLang("作品名", l);
+            info.InfoList.Add(cache, new LiteralText(cache, GetWorkName()));
+
+            cache = LocaleTexts.InLang("封面图", l);
+            InfoGroup<Picture> pics = new InfoGroup<Picture>(cache);
+            int i = 0;
+            foreach(Image pic in GetImages())
+            {
+                pics.InfoList.Add((i).ToString(), new Picture(i.ToString(), pic));
+                i++;
+            }
+            info.InfoList.Add(cache, pics);
+
+            cache = LocaleTexts.InLang("社团名", l);
+            TagCollection tc = new TagCollection(cache);
+            tc.AddTag(new Tag(GetCircleName()));
+            info.InfoList.Add(cache, tc);
+
+            foreach(BaseInfoType inf in outline.ToInfoGroup())
+            {
+                info.InfoList.Add(inf.Name, inf);
+            }
+
+            cache = LocaleTexts.InLang("作品内容", l);
+            info.InfoList.Add(cache, new LiteralText(cache, GetSummary()));
+
+            cache = LocaleTexts.InLang("评价", l);
+            info.InfoList.Add(cache, new LiteralText(cache, GetRating()));
+
+            return info;
+        }
+
+        /// <summary>
+        /// 获取作品名
+        /// </summary>
+        /// <returns>作品名</returns>
+        public String GetWorkName()
+        {
             return p.GetFirstNode("id", "work_name").ToPlainTextStringEx().Trim();
-        } 
+        }
+
+        /// <summary>
+        /// 获取社团名
+        /// </summary>
+        /// <returns>社团名</returns>
+        public String GetCircleName()
+        {
+            INode n = p.GetFirstNode("class", "maker_name");
+            return n.ToPlainTextStringEx().Trim();
+        }
+
+        /// <summary>
+        /// 获取封面图片组
+        /// </summary>
+        /// <returns>封面图片组</returns>
+        public List<Image> GetImages()
+        {
+            return new List<Image>();
+        }
+
+        /// <summary>
+        /// 获取作品简介
+        /// </summary>
+        /// <returns>作品简介（HTML格式）</returns>
+        public String GetSummary()
+        {
+            INode n = p.GetFirstNode("itemprop", "description");
+            return n.ToHtml().Trim();
+        }
+
+        /// <summary>
+        /// 获取作品评分
+        /// </summary>
+        /// <returns>作品评分</returns>
+        public String GetRating()
+        {
+            return "";
+        }
+
+        
     }
 }
