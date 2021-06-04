@@ -46,7 +46,7 @@ namespace InfoFileFormat
 
         public override string ToString()
         {
-            return charset.GetString(this.Data);
+            return "<LiteralText>"+ Name + " | " + charset.GetString(this.Data);
 
         }
 

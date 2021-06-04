@@ -141,6 +141,18 @@ namespace InfoFileFormat
             return a;
         }
 
+        public InfoGroup<BaseInfoType> ToInfoGroup(String name)
+        {
+            InfoGroup<BaseInfoType> group = new InfoGroup<BaseInfoType>(name);
+
+            foreach(KeyValuePair<String, BaseInfoType> info in this.info)
+            {
+                group.InfoList.Add(info.Key, info.Value);
+            }
+
+            return group;
+        }
+
         private void AddNecessaryInfo()
         {
             

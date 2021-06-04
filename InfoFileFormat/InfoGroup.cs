@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 namespace InfoFileFormat
 {
     [Serializable]
-    public class InfoGroup<E> : BaseInfoType
+    public class InfoGroup<E> : BaseInfoType, IEnumerable<E>
     {
         public Dictionary<String, E> InfoList
         {
@@ -57,11 +58,81 @@ namespace InfoFileFormat
             return array;
         }
 
+        public override string ToString()
+        {
+            String s = "InfoGroup:" + Name + "\n";
+
+            foreach(E info in InfoList.Values)
+            {
+                s += info.ToString() + "\n";
+            }
+
+            return s;
+        }
 
         public override InfoType GetInfoType()
         {
             return InfoType.InfoGroup;
         }
 
+        public IEnumerator<E> GetEnumerator()
+        {
+            GroupEnumerator<E> e = new GroupEnumerator<E>(this.InfoList.Values.ToArray());
+
+            return e;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
+
+
+    class GroupEnumerator<E> : IEnumerator<E>
+    {
+        public E[] arr;
+        private int pos = -1;
+
+        public E Current
+        {
+            get
+            {
+                return arr[pos];
+            }
+        }
+
+        object IEnumerator.Current
+        {
+            get
+            {
+                return arr[pos];
+            }
+        }
+
+        public GroupEnumerator(E[] array)
+        {
+            arr = array;
+        }
+
+        public void Dispose()
+        {
+            return;
+        }
+
+        public bool MoveNext()
+        {
+            if(pos + 1 >= arr.Length)
+            {
+                return false;
+            }
+            pos++;
+            return true;
+        }
+
+        public void Reset()
+        {
+            pos = -1;
+        }
     }
 }
