@@ -14,20 +14,36 @@ namespace RJ_Manager
 {
     public partial class Form5 : Form
     {
+        public struct ListPack
+        {
+            public Object sender;
+            public List<Object> co;
 
+            public ListPack(Object sender, List<Object> co)
+            {
+                this.sender = sender;
+                this.co = co;
+            }
+        }
 
-        public Form5()
+        public List<Object> RJList;
+
+        public Form5(List<Object> co)
         {
             InitializeComponent();
             listView1.Items.Clear();
+            RJList = co;
         }
 
-        public void finding(Object sender)
+        public void finding(Object pack)
         {
-            Dictionary<String, List<MainW.RJFile>> x = new Dictionary<string, List<MainW.RJFile>>();
-            foreach(Object o in MainW.co)
+            Object sender = ((ListPack)pack).sender;
+            List<Object> co = ((ListPack)pack).co;
+
+            Dictionary<String, List<ContentPage.RJFile>> x = new Dictionary<string, List<ContentPage.RJFile>>();
+            foreach(Object o in co)
             {
-                MainW.RJFile c = (o as MainW.ListInfo).File;
+                ContentPage.RJFile c = (o as ContentPage.ListInfo).File;
                 String[] rjs = c.RJ.Split(',');
                 foreach(String xx in rjs)
                 {
@@ -38,17 +54,17 @@ namespace RJ_Manager
                     }
                     else
                     {
-                        x.Add(xx, new List<MainW.RJFile>());
+                        x.Add(xx, new List<ContentPage.RJFile>());
                         x[xx].Add(c);
                     }
                 }
             }
             bool a = false;
-            foreach (KeyValuePair<String, List<MainW.RJFile>> k in x)
+            foreach (KeyValuePair<String, List<ContentPage.RJFile>> k in x)
             {
                 if (k.Value.Count > 1)
                 {
-                    foreach (MainW.RJFile d in k.Value)
+                    foreach (ContentPage.RJFile d in k.Value)
                     {
                         FileInfo info = new FileInfo(d.fullPath);
                         if (!info.Exists) continue;
@@ -81,7 +97,7 @@ namespace RJ_Manager
         private void Form5_Load(object sender, EventArgs e)
         {
             Thread a = new Thread(new ParameterizedThreadStart(finding));
-            a.Start(listView1);
+            a.Start(new ListPack(listView1, RJList));
         }
 
         private void listView1_ColumnClick(object sender, ColumnClickEventArgs e)

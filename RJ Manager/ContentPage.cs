@@ -102,7 +102,7 @@ namespace RJ_Manager
 
         }
 
-        public static List<Object> co = new List<object>();
+        public List<Object> co = new List<object>();
         private String now_url = "";       //被要求加载的url
         Thread picDownloader = null;   //下载线程
 
@@ -484,7 +484,7 @@ namespace RJ_Manager
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new Form5().ShowDialog();
+            new Form5(co).ShowDialog();
         }
 
         private void listBox1_MouseMove(object sender, MouseEventArgs e)

@@ -381,10 +381,10 @@
             // fb2
             // 
             this.fb2.BackColor = System.Drawing.Color.Transparent;
-            this.fb2.Location = new System.Drawing.Point(83, 15);
+            this.fb2.Location = new System.Drawing.Point(83, 12);
             this.fb2.Margin = new System.Windows.Forms.Padding(10, 15, 10, 10);
             this.fb2.Name = "fb2";
-            this.fb2.Size = new System.Drawing.Size(53, 46);
+            this.fb2.Size = new System.Drawing.Size(53, 20);
             this.fb2.TabIndex = 1;
             this.fb2.Text = "无RJ";
             this.fb2.UseVisualStyleBackColor = false;
@@ -392,10 +392,10 @@
             // 
             // fb1
             // 
-            this.fb1.Location = new System.Drawing.Point(10, 15);
+            this.fb1.Location = new System.Drawing.Point(10, 12);
             this.fb1.Margin = new System.Windows.Forms.Padding(10, 15, 10, 10);
             this.fb1.Name = "fb1";
-            this.fb1.Size = new System.Drawing.Size(53, 46);
+            this.fb1.Size = new System.Drawing.Size(53, 20);
             this.fb1.TabIndex = 0;
             this.fb1.Text = "有RJ";
             this.fb1.UseVisualStyleBackColor = true;
