@@ -45,10 +45,11 @@
             this.设置工作文件夹ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开工作文件夹ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.置顶窗口ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.新窗口ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.目录窗口ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.tabs = new RJ_Manager.CustomControls.WebTab();
+            this.查重窗口ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -162,7 +163,8 @@
             // 新窗口ToolStripMenuItem
             // 
             this.新窗口ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.目录窗口ToolStripMenuItem});
+            this.目录窗口ToolStripMenuItem,
+            this.查重窗口ToolStripMenuItem});
             this.新窗口ToolStripMenuItem.Name = "新窗口ToolStripMenuItem";
             this.新窗口ToolStripMenuItem.Size = new System.Drawing.Size(56, 21);
             this.新窗口ToolStripMenuItem.Text = "新窗口";
@@ -170,7 +172,7 @@
             // 目录窗口ToolStripMenuItem
             // 
             this.目录窗口ToolStripMenuItem.Name = "目录窗口ToolStripMenuItem";
-            this.目录窗口ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.目录窗口ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.目录窗口ToolStripMenuItem.Text = "目录窗口";
             this.目录窗口ToolStripMenuItem.Click += new System.EventHandler(this.目录窗口ToolStripMenuItem_Click);
             // 
@@ -185,6 +187,13 @@
             this.tabs.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabs.TabIndex = 9;
             this.tabs.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabs_DrawItem);
+            // 
+            // 查重窗口ToolStripMenuItem
+            // 
+            this.查重窗口ToolStripMenuItem.Name = "查重窗口ToolStripMenuItem";
+            this.查重窗口ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.查重窗口ToolStripMenuItem.Text = "查重窗口";
+            this.查重窗口ToolStripMenuItem.Click += new System.EventHandler(this.查重窗口ToolStripMenuItem_Click);
             // 
             // MainW
             // 
@@ -228,5 +237,6 @@
         private System.Windows.Forms.ToolTip toolTip2;
         private System.Windows.Forms.ToolStripMenuItem 新窗口ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 目录窗口ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 查重窗口ToolStripMenuItem;
     }
 }

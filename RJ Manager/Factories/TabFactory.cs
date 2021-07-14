@@ -10,7 +10,8 @@ namespace RJ_Manager.Factories
 {
     public enum TabType
     {
-        Content = 0
+        Content = 0,
+        Duplicate = 1
     }
 
     public class TabFactory
@@ -24,6 +25,9 @@ namespace RJ_Manager.Factories
             {
                 case TabType.Content:
                     page.Controls.Add(new ContentPage());
+                    break;
+                case TabType.Duplicate:
+                    page.Controls.Add(new DuplicatePage());
                     break;
             }
 

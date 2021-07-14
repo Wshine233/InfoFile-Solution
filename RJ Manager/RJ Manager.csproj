@@ -114,6 +114,12 @@
     <Compile Include="HTMLProcesser\NodeEx.cs" />
     <Compile Include="InfoFormat\RJInfo.cs" />
     <Compile Include="InfoFormat\RJOutline.cs" />
+    <Compile Include="DuplicatePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DuplicatePage.Designer.cs">
+      <DependentUpon>DuplicatePage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="ExplorerForm.cs">
       <SubType>Form</SubType>
@@ -193,6 +199,9 @@
     <EmbeddedResource Include="Resources\Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DuplicatePage.resx">
+      <DependentUpon>DuplicatePage.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">

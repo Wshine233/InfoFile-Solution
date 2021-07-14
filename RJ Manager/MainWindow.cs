@@ -110,5 +110,10 @@ namespace RJ_Manager
         {
             tabs.AddPage(TabFactory.GetNewTabPage("草草草草草草草草草草", TabType.Content));
         }
+
+        private void 查重窗口ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tabs.AddPage(TabFactory.GetNewTabPage("查重窗口", TabType.Duplicate));
+        }
     }
 }
