@@ -97,15 +97,7 @@ You can add info to your file freely with this new project!
 
 ## 相关文档什么时候完善？
 
-等该库有一个**非熟人**的Star⭐后，之后还会根据需求制作wiki。
-
-
-## 其它链接
-[Bilibili个人空间](https://space.bilibili.com/45307740) 一般发布游戏视频，音游向偏多，没有代码
-
-[个人简单博客](https://wshine233.github.io/) 龟速更新，讲一些想讲的东西。大多是原创内容，现在打算写一些技术向的内容，并准备进行大改造。
-
-[Telegram频道](https://t.me/WnoDaily) 每日更新，趣图、美图、自己的所见所闻、自己感兴趣领域（游戏、计算机、音乐等）的文章，有时也会有技术向的东西出现，请不要见怪ヽ(≧Д≦)ノ。<br>
+等该库有一个**非熟人**的Star⭐后，之后还会根据需求制作wiki。<br>
 
 
 # 版权信息
