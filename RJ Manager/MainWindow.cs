@@ -1,19 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using System.Threading;
-using System.Net;
-using System.Text;
 using RJ_Manager.Factories;
-using RJ_Manager.CustomControls;
 
 namespace RJ_Manager
 {
@@ -47,9 +36,20 @@ namespace RJ_Manager
 
         private void 刷新ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(tabs.SelectedTab.Controls.Count == 1 && tabs.SelectedTab.Controls[0] is ContentPage)
+            if(tabs.SelectedTab.Controls.Count >= 1)
             {
-                (tabs.SelectedTab.Controls[0] as ContentPage).RefreshFiles();
+                Control ct = tabs.SelectedTab.Controls[0];
+
+                if (ct is ContentPage)
+                {
+                    (ct as ContentPage).RefreshFiles();
+                }
+                else if(ct is DuplicatePage)
+                {
+                    DuplicatePage p = (DuplicatePage)ct;
+                    p.RefreshFiles();
+                }
+                
             }
         }
 

@@ -289,6 +289,11 @@ namespace RJ_Manager.InfoFormat
             return info;
         }
 
+        public static RJInfo GetRJInfo(String rj)
+        {
+            return GetRJInfo(rj, HTMLHelper.GetRJHTMLString(rj));
+        }
+
         public InfoGroup<BaseInfoType> GetAllInfos()
         {
             InfoGroup<BaseInfoType> info = new InfoGroup<BaseInfoType>(RJNum);
@@ -352,7 +357,9 @@ namespace RJ_Manager.InfoFormat
         /// <returns>封面图片组</returns>
         public List<Image> GetImages()
         {
-            return new List<Image>();
+            List<Image> imageList = new List<Image>();
+
+            return imageList;
         }
 
         /// <summary>

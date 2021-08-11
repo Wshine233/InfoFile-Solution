@@ -112,6 +112,7 @@
     <Compile Include="HTMLProcesser\HTMLHelper.cs" />
     <Compile Include="HTMLProcesser\HTMLParser.cs" />
     <Compile Include="HTMLProcesser\NodeEx.cs" />
+    <Compile Include="InfoFormat\RJFile.cs" />
     <Compile Include="InfoFormat\RJInfo.cs" />
     <Compile Include="InfoFormat\RJOutline.cs" />
     <Compile Include="DuplicatePage.cs">

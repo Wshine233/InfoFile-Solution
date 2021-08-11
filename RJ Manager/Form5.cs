@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RJ_Manager.InfoFormat;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -40,10 +41,10 @@ namespace RJ_Manager
             Object sender = ((ListPack)pack).sender;
             List<Object> co = ((ListPack)pack).co;
 
-            Dictionary<String, List<ContentPage.RJFile>> x = new Dictionary<string, List<ContentPage.RJFile>>();
+            Dictionary<String, List<RJFile>> x = new Dictionary<string, List<RJFile>>();
             foreach(Object o in co)
             {
-                ContentPage.RJFile c = (o as ContentPage.ListInfo).File;
+                RJFile c = (o as ContentPage.ListInfo).File;
                 String[] rjs = c.RJ.Split(',');
                 foreach(String xx in rjs)
                 {
@@ -54,17 +55,17 @@ namespace RJ_Manager
                     }
                     else
                     {
-                        x.Add(xx, new List<ContentPage.RJFile>());
+                        x.Add(xx, new List<RJFile>());
                         x[xx].Add(c);
                     }
                 }
             }
             bool a = false;
-            foreach (KeyValuePair<String, List<ContentPage.RJFile>> k in x)
+            foreach (KeyValuePair<String, List<RJFile>> k in x)
             {
                 if (k.Value.Count > 1)
                 {
-                    foreach (ContentPage.RJFile d in k.Value)
+                    foreach (RJFile d in k.Value)
                     {
                         FileInfo info = new FileInfo(d.fullPath);
                         if (!info.Exists) continue;

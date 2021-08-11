@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Winista.Text.HtmlParser;
@@ -47,6 +49,9 @@ namespace RJ_Manager.HTMLProcesser
             "&Oslash;","&divide;","&thorn;","&larr;","&uarr;","&rarr;","&darr;","&harr;","&crarr;",
             "&lArr;","&uArr;","&rArr;","&dArr;","&hArr;","","","","",
             "","","","","","","","","",};
+
+
+        public readonly static WebClient client = new WebClient();
 
 
         public static string ReplaceSpecialCharacters(string s)
@@ -100,6 +105,41 @@ namespace RJ_Manager.HTMLProcesser
             }
 
             return after;
+        }
+
+        public static String GetRJHTMLString(String rj, bool refresh = false)
+        {
+            FileInfo inf = new FileInfo("CachePic\\" + rj + ".html");
+            String docs;
+            if (inf.Exists && !refresh)
+            {
+                Utils.Decrypt(inf, "RJ");
+                StreamReader r = inf.OpenText();
+                docs = r.ReadToEnd();
+                r.Close();
+                Utils.Encrypt(inf, "RJ");
+            }
+            else
+            {
+                docs = GetHTMLString("https://www.dlsite.com/maniax/work/=/product_id/" + rj + ".html");
+                inf.Open(FileMode.Create).Close();
+                StreamWriter wr = inf.CreateText();
+                wr.Write(docs);
+                wr.Close();
+                Utils.Encrypt(inf, "RJ");
+            }
+
+            return docs;
+        }
+
+        public static String GetHTMLString(String url)
+        {
+            String docs;
+
+            byte[] document = client.DownloadData(url);
+            docs = Encoding.UTF8.GetString(document);
+
+            return docs;
         }
     }
 }

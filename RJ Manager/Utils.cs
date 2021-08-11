@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace RJ_Manager
 {
-    class Utils
+    public class Utils
     {
+
         public static void Encrypt(FileInfo info, String pw)
         {
 
@@ -33,5 +34,25 @@ namespace RJ_Manager
             }
             return a.ToString("0.##") + unit[level];
         }
+
+        public static List<FileInfo> ScanFiles()
+        {
+            List<FileInfo> allFiles = new List<FileInfo>();
+
+            foreach (String folder in FolderManager.loadList())
+            {
+                DirectoryInfo info = new DirectoryInfo(folder);
+                if (info.Exists)
+                {
+                    foreach (FileInfo f in info.GetFiles())
+                    {
+                        allFiles.Add(f);
+                    }
+                }
+            }
+
+            return allFiles;
+        }
+
     }
 }

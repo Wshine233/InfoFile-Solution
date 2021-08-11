@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
 using System.IO;
@@ -13,9 +10,8 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using RJ_Manager.HTMLProcesser;
-using Winista.Text.HtmlParser;
-using Winista.Text.HtmlParser.Nodes;
 using RJ_Manager.InfoFormat;
+using static RJ_Manager.Utils;
 
 namespace RJ_Manager
 {
@@ -39,13 +35,6 @@ namespace RJ_Manager
             //rjf.Clear();*/
         }
 
-        public struct RJFile
-        {
-            public String RJ;
-            public String fullPath;
-            public bool? fuzzy;
-        };
-
         //public static Dictionary<int,RJFile> rjf = new Dictionary<int, RJFile>();
 
         public struct Pack
@@ -59,7 +48,7 @@ namespace RJ_Manager
         {
             String name;
             int num;
-            RJFile? file;
+            RJFile file;
 
             public RJFile File
             {
@@ -71,10 +60,7 @@ namespace RJ_Manager
                     }
                     else
                     {
-                        RJFile c;
-                        c.RJ = "?";
-                        c.fullPath = "";
-                        c.fuzzy = null;
+                        RJFile c = new RJFile();
                         return c;
                     }
                 }
@@ -82,7 +68,7 @@ namespace RJ_Manager
 
             }
 
-            public ListInfo(String name, int num, RJFile? file)
+            public ListInfo(String name, int num, RJFile file)
             {
                 this.name = name;
                 this.num = num;
@@ -226,26 +212,7 @@ namespace RJ_Manager
                     dirInfo.Create();
                 }
 
-                FileInfo inf = new FileInfo("CachePic\\" + p.url.Substring(p.url.LastIndexOf("/") + 1, 8) + ".html");
-                String docs;
-                if (inf.Exists && !p.refresh)
-                {
-                    Utils.Decrypt(inf, "RJ");
-                    StreamReader r = inf.OpenText();
-                    docs = r.ReadToEnd();
-                    r.Close();
-                    Utils.Encrypt(inf, "RJ");
-                }
-                else
-                {
-                    byte[] document = a.DownloadData("https://www.dlsite.com/maniax/work/=/product_id/" + p.rj + ".html");
-                    docs = Encoding.UTF8.GetString(document);
-                    inf.Open(FileMode.Create).Close();
-                    StreamWriter wr = inf.CreateText();
-                    wr.Write(docs);
-                    wr.Close();
-                    Utils.Encrypt(inf, "RJ");
-                }
+                String docs = HTMLHelper.GetRJHTMLString(p.rj, p.refresh);
 
                 #region
                 nowRJ = p.rj;
@@ -336,8 +303,6 @@ namespace RJ_Manager
 
         public void RefreshFiles()
         {
-            String pattern = @"[rR][jJ][0-9]{6}";
-            String pattern2 = @"(?<!\d)(\d{6}(?!\d))";
             listBox1.Items.Clear();
             //rjf.Clear();
             int i = 0;
@@ -353,35 +318,7 @@ namespace RJ_Manager
 
                     foreach (FileInfo f in info.GetFiles())
                     {
-                        c.fullPath = f.FullName;
-                        c.RJ = "";
-                        foreach (Match match in Regex.Matches(f.Name, pattern))
-                        {
-                            if (c.RJ.Length > 0)
-                            {
-                                c.RJ = c.RJ + ',';
-                            }
-                            c.RJ = c.RJ + match.ToString().ToUpper();
-                        }
-                        c.fuzzy = false;
-                        if (c.RJ == "" && Regex.Matches(f.Name, pattern2).Count >= 1)
-                        {
-                            foreach (Match match in Regex.Matches(f.Name, pattern2))
-                            {
-                                if (c.RJ.Length > 0)
-                                {
-                                    c.RJ = c.RJ + ',';
-                                }
-                                c.RJ = c.RJ + "RJ" + match.ToString();
-                            }
-                            c.fuzzy = true;
-                        }
-                        else if (c.RJ == "")
-                        {
-                            c.RJ = "?";
-                            c.fuzzy = null;
-                        }
-                        //rjf.Add(i++, c);
+                        c = new RJFile(f);
                         ListInfo info1 = new ListInfo(f.Name, i, c);
                         listBox1.Items.Add(info1);
                     }
