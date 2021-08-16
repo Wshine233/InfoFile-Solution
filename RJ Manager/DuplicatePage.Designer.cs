@@ -41,6 +41,8 @@ namespace RJ_Manager
             this.listView1.AllowColumnReorder = true;
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.NameCol});
+            this.listView1.Font = new System.Drawing.Font("宋体", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.listView1.ForeColor = System.Drawing.Color.RoyalBlue;
             this.listView1.FullRowSelect = true;
             this.listView1.HideSelection = false;
             listViewItem1.StateImageIndex = 0;
@@ -52,7 +54,7 @@ namespace RJ_Manager
             this.listView1.Size = new System.Drawing.Size(777, 493);
             this.listView1.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listView1.TabIndex = 0;
-            this.listView1.TileSize = new System.Drawing.Size(20, 20);
+            this.listView1.TileSize = new System.Drawing.Size(240, 180);
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // NameCol

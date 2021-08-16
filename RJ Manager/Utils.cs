@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -52,6 +53,17 @@ namespace RJ_Manager
             }
 
             return allFiles;
+        }
+
+        private static bool ThumbnailCallback()
+        {
+            return false;
+        }
+        public static Image GetThumbnail(Image image, int width, int height)
+        {
+            Image.GetThumbnailImageAbort myCallback = new Image.GetThumbnailImageAbort(ThumbnailCallback);
+            Image myThumbnail = image.GetThumbnailImage(width, height, myCallback, IntPtr.Zero);
+            return myThumbnail;
         }
 
     }

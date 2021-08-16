@@ -1,4 +1,5 @@
-﻿using RJ_Manager.InfoFormat;
+﻿using RJ_Manager.HTMLProcesser;
+using RJ_Manager.InfoFormat;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,11 +16,14 @@ namespace RJ_Manager
     public partial class DuplicatePage : UserControl
     {
 
-        public Dictionary<String, List<RJFile>> dic = new Dictionary<string, List<RJFile>>();
+        public Dictionary<String, List<RJFile>> dic = new Dictionary<String, List<RJFile>>();
+        public ImageList imageList = new ImageList();
 
         public DuplicatePage()
         {
             InitializeComponent();
+            imageList.ImageSize = new Size(240, 180);
+            imageList.ColorDepth = ColorDepth.Depth32Bit;
         }
 
         public void RefreshFiles()
@@ -36,10 +40,12 @@ namespace RJ_Manager
                     if (!dic.ContainsKey(rj))
                     {
                         dic.Add(rj, new List<RJFile>());
+                        imageList.Images.Add(rj, HTMLHelper.GetRJImage(rj));
                     }
                     dic[rj].Add(f);
                 }
             }
+            listView1.LargeImageList = imageList;
 
             RefreshViewer();
         }
@@ -59,7 +65,7 @@ namespace RJ_Manager
 
                     foreach(RJFile f in dic[rj])
                     {
-                        ListViewItem item = new ListViewItem(f.fullPath.Substring(f.fullPath.LastIndexOf('\\') + 1), group);
+                        ListViewItem item = new ListViewItem(f.fullPath.Substring(f.fullPath.LastIndexOf('\\') + 1), rj, group);
                         item.Tag = f;
                         listView1.Items.Add(item);
                     }

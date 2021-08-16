@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -140,6 +141,47 @@ namespace RJ_Manager.HTMLProcesser
             docs = Encoding.UTF8.GetString(document);
 
             return docs;
+        }
+
+        public static Image GetRJImage(String rj, bool refresh = false)
+        {
+            if (rj == "?") return Resources.Resource1.Wait;
+
+            Image im;
+
+            FileInfo info = new FileInfo("CachePic\\" + rj + ".jpg");
+            if (!refresh && info.Exists && info.Length > 0)
+            {
+                Utils.Decrypt(info, "RJ");
+                StreamReader rd = info.OpenText();
+                im = Image.FromStream(rd.BaseStream);
+                rd.Close();
+                Utils.Encrypt(info, "RJ");
+            }
+            else
+            {
+                im = GetWebImage("https://img.dlsite.jp/modpub/images2/work/doujin/RJ" + (int.Parse(rj.Substring(2, 3)) + 1).ToString("000") + "000/" + rj + "_img_main.jpg");
+
+                info.Delete();
+                info.Create().Close();
+                Bitmap bitmap = new Bitmap(im);
+                bitmap.Save(info.FullName);
+                Utils.Encrypt(info, "RJ");
+            }
+
+            return im;
+        }
+
+        public static Image GetWebImage(String url)
+        {
+            Image im;
+            byte[] buffer = client.DownloadData(url);
+
+            MemoryStream m = new MemoryStream(buffer);
+            im = Image.FromStream(m);
+            m.Close();
+
+            return im;
         }
     }
 }
