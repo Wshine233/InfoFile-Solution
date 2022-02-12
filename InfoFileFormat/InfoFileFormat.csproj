@@ -48,6 +48,7 @@
     <Compile Include="BaseInfoType.cs" />
     <Compile Include="InfoFile.cs" />
     <Compile Include="InfoGroup.cs" />
+    <Compile Include="InfoSection.cs" />
     <Compile Include="InfoTemplate.cs" />
     <Compile Include="LiteralText.cs" />
     <Compile Include="NecessaryInfo.cs" />

@@ -18,7 +18,7 @@ namespace InfoFileFormat
         protected struct InfoFileStructure
         {
             public NecessaryInfo necessaryInfo;
-            public Dictionary<String, BaseInfoType> info;
+            public List<InfoSection> info;
         }
 
         protected NecessaryInfo necessaryInfo;
@@ -30,8 +30,8 @@ namespace InfoFileFormat
             }
         }
 
-        protected Dictionary<String, BaseInfoType> info;
-        public Dictionary<String, BaseInfoType> Info
+        protected List<InfoSection> info = new List<InfoSection>();
+        public List<InfoSection> Info
         {
             get
             {
@@ -53,26 +53,26 @@ namespace InfoFileFormat
 
         static InfoFile()
         {
-            InfoFile infoFile = new InfoFile();
+            /*InfoFile infoFile = new InfoFile();
             LiteralText text = new LiteralText("My First Test Text", "Hello!");
-            infoFile.AddMetaData(text);
+            infoFile.AddInfoSection(text);
 
             Picture picture = new Picture("FirstPic", Image.FromFile("C:\\Users\\atbwc\\Pictures\\Camera Roll\\wallhaven-ymz61d.jpg"));
-            infoFile.AddMetaData(picture);
+            infoFile.AddInfoSection(picture);
 
             TagCollection collection = new TagCollection("Test Collection");
             collection.AddTag(new Tag("123"));
             collection.AddTag(new Tag("Test Tag"));
-            infoFile.AddMetaData(collection);
+            infoFile.AddInfoSection(collection);
 
-            TEST_VALUE = infoFile;
+            TEST_VALUE = infoFile;*/
         }
 
         protected InfoFile()
         {
             VERSION = LATEST_VERSION;
             this.necessaryInfo = new NecessaryInfo(VERSION, null, null, null);
-            this.info = new Dictionary<string, BaseInfoType>();
+            //this.info = new Dictionary<string, BaseInfoType>();
         }
 
         public InfoFile(FileInfo file)
@@ -82,7 +82,7 @@ namespace InfoFileFormat
             if (file.Exists)
             {
                 this.necessaryInfo = new NecessaryInfo(VERSION, file.FullName, file.Length.ToString(), null);
-                this.info = new Dictionary<string, BaseInfoType>();
+                //this.info = new Dictionary<string, BaseInfoType>();
             }
             else
             {
@@ -97,7 +97,7 @@ namespace InfoFileFormat
             if (file.Exists)
             {
                 this.necessaryInfo = new NecessaryInfo(VERSION, file.FullName, file.Length.ToString(), null);
-                this.info = new Dictionary<string, BaseInfoType>();
+                //this.info = new Dictionary<string, BaseInfoType>();
             }
             else
             {
@@ -106,51 +106,90 @@ namespace InfoFileFormat
             }
         }
 
-        public void AddMetaData(BaseInfoType info)
+        public void AddInfoSection(InfoSection section, int pos = -1)
         {
-            this.info.Add(info.Name, info);
+            if(pos >= 0)
+            {
+                this.info.Insert(pos, section);
+            }
+            else
+            {
+                this.info.Add(section);
+            }
+            
         }
 
         public bool HasInfo(String key)
         {
-            return this.info.ContainsKey(key);
+            foreach(InfoSection s in info)
+            {
+                IEnumerator<BaseInfoType> enumerator = s.GetEnumerator();
+                enumerator.Reset();
+                while (enumerator.MoveNext())
+                {
+                    if (key.Equals(enumerator.Current.Name))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         public BaseInfoType GetInfo(String key)
         {
-            return this.info[key];
+            foreach (InfoSection s in info)
+            {
+                IEnumerator<BaseInfoType> enumerator = s.GetEnumerator();
+                enumerator.Reset();
+                while (enumerator.MoveNext())
+                {
+                    if (key.Equals(enumerator.Current.Name))
+                    {
+                        return enumerator.Current;
+                    }
+                }
+            }
+
+            return null;
         }
 
-        public BaseInfoType[] Infos()
+        public InfoSection[] Infos()
         {
-            BaseInfoType[] a = new BaseInfoType[info.Count];
-            info.Values.CopyTo(a, 0);
+            InfoSection[] a = new InfoSection[info.Count];
+            info.CopyTo(a);
             return a;
         }
 
         public Collection<TagCollection> GetTagCollections()
         {
             Collection<TagCollection> a = new Collection<TagCollection>();
-            foreach (BaseInfoType i in this.info.Values)
+            foreach (InfoSection s in info)
             {
-                if(i.GetInfoType() == BaseInfoType.InfoType.Tag)
+                IEnumerator<BaseInfoType> enumerator = s.GetEnumerator();
+                enumerator.Reset();
+                while (enumerator.MoveNext())
                 {
-                    a.Add(i as TagCollection);
+                    if(enumerator.Current is TagCollection)
+                    {
+                        a.Add(enumerator.Current as TagCollection);
+                    }
                 }
             }
             return a;
         }
 
-        public InfoGroup<BaseInfoType> ToInfoGroup(String name)
+        public InfoSection ToInfoSection(String name)
         {
-            InfoGroup<BaseInfoType> group = new InfoGroup<BaseInfoType>(name);
+            InfoSection section = new InfoSection(name);
 
-            foreach(KeyValuePair<String, BaseInfoType> info in this.info)
+            foreach(InfoSection s in this.info)
             {
-                group.InfoList.Add(info.Key, info.Value);
+                section.AddInfo(s);
             }
 
-            return group;
+            return section;
         }
 
         private void AddNecessaryInfo()

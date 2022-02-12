@@ -219,11 +219,14 @@ namespace RJ_Manager
                 nowHTML = docs;
                 #endregion
 
-                //String name = RJInfo.GetWorkName(docs);   速度太慢
-                String name = docs.Substring(docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">"), docs.IndexOf("</h1>") - docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">") + 1);
+                /*RJInfo rj_info = RJInfo.GetRJInfo(nowRJ, docs);
+                String name = rj_info.GetWorkName();   //速度太慢*/
+                Regex nameReg = new Regex("(?<=data-product-id=\"" + nowRJ + "\" data-product-name=\").+(?=\" data)");
+                String name = nameReg.Match(docs).Value;
+                /*String name = docs.Substring(docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">"), docs.IndexOf("</h1>") - docs.IndexOf("<h1 itemprop=\"name\" id=\"work_name\">") + 1);
                 name = name.Substring(name.IndexOf("one-link-mark=\"yes\">") + 20, name.LastIndexOf("</a>") - name.IndexOf("one-link-mark=\"yes\">") - 20);
                 name = name.Substring(name.LastIndexOf('>') + 1);
-                name = HTMLHelper.ReplaceSpecialCharacters(name);
+                name = HTMLHelper.ReplaceSpecialCharacters(name);*/
                 if (this.now_url != p.url)
                 {
 

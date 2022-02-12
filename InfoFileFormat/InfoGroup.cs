@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace InfoFileFormat
 {
     [Serializable]
-    public class InfoGroup<E> : BaseInfoType, IEnumerable<E>
+    public class InfoGroup<E> : BaseInfoType, IEnumerable<E> where E : BaseInfoType
     {
         public Dictionary<String, E> InfoList
         {

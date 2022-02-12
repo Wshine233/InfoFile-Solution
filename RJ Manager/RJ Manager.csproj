@@ -98,6 +98,9 @@
     <Compile Include="ContentPage.Designer.cs">
       <DependentUpon>ContentPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomControls\ListViewExtended.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CustomControls\WebTab.cs">
       <SubType>Component</SubType>
     </Compile>
